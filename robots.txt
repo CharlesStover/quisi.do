@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /_next/
+Disallow: /.nojekyll
+Disallow: /CNAME
+
+Sitemap: https://quisi.do/sitemap.xml
