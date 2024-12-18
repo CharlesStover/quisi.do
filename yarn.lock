@@ -13255,14 +13255,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"happy-dom@npm:^15.7.4":
-  version: 15.7.4
-  resolution: "happy-dom@npm:15.7.4"
+"happy-dom@npm:^15.10.2":
+  version: 15.10.2
+  resolution: "happy-dom@npm:15.10.2"
   dependencies:
     entities: "npm:^4.5.0"
     webidl-conversions: "npm:^7.0.0"
     whatwg-mimetype: "npm:^3.0.0"
-  checksum: 10c0/406b6b86d52e5dc7bc2fbf0d1c0507a2d954f35dc0af5230f933ad1542646260cb46c1a763d064da0bcf1fbe806efbf10e28bad1c6865c7cde125269358047c0
+  checksum: 10c0/b0403c4c53021da25989b320f2a6c0ab760cc538f10e403df9d2f14b0a7d20b1be961192c95322b335dc71fa27941e7e8b883b2d79d7c9c51215a97b3e3097a6
   languageName: node
   linkType: hard
 
@@ -16032,7 +16032,7 @@ __metadata:
     eslint-plugin-react-compiler: "npm:^19.0.0-beta-9ee70a1-20241017"
     eslint-plugin-react-hooks: "npm:^5.0.0"
     eslint-plugin-react-refresh: "npm:^0.4.12"
-    happy-dom: "npm:^15.7.4"
+    happy-dom: "npm:^15.10.2"
     prettier: "npm:^3.3.3"
     publint: "npm:^0.2.11"
     react: "npm:^18.3.1"
@@ -19996,7 +19996,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^5.0.0"
     eslint-plugin-react-refresh: "npm:^0.4.12"
     fmrs: "workspace:^"
-    happy-dom: "npm:^15.7.4"
+    happy-dom: "npm:^15.10.2"
     prettier: "npm:^3.3.3"
     publint: "npm:^0.2.11"
     react: "npm:^18.3.1"
