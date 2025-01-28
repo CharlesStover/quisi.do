@@ -22,6 +22,7 @@ export default {
     experimentalRunAllSpecs: true,
     // ExperimentalStudio: true,
     specPattern: 'src/**/*.e2e.ts',
+
     setupNodeEvents(
       on: Cypress.PluginEvents,
       config: Cypress.PluginConfigOptions,

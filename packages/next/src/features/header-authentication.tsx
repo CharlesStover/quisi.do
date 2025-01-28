@@ -46,10 +46,10 @@ function useAuthenticationState(): State {
     }
 
     return true;
-  }
+  };
 
   return {
-    id: typeof data === 'undefined' ? null : data.id,
+    id: data?.id ?? null,
     show: getShow(),
     showLoading: loading && showLoading,
   };

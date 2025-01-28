@@ -1,0 +1,55 @@
+.gauge {
+  height: 4rem;
+  width: 8rem;
+}
+
+.gaugeNeedle {
+  fill: #c04040;
+  filter: drop-shadow(0 0 1px #f0f0f040);
+  stroke: #000000c0;
+  stroke-width: 0.333;
+}
+
+.list {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  > li {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 1rem 2em;
+    text-align: center;
+  }
+}
+
+.negativeActive {
+  fill: #CB6B6Ac0;
+}
+
+.negativeInactive {
+  fill: #CB6B6A20;
+}
+
+.neutralActive {
+  fill: #E8BB7Cc0;
+}
+
+.neutralInactive {
+  fill: #E8BB7C20;
+}
+
+.positiveActive {
+  fill: #558D54c0;
+}
+
+.positiveInactive {
+  fill: #558D5420;
+}

@@ -565,7 +565,7 @@ export default class Handler<
      * `JSON.stringify(undefined)` is `undefined`, which will cause the `value`
      * property to be dropped from the object.
      */
-    const valueStr: string = JSON.stringify(value ?? 'null');
+    const valueStr: string = JSON.stringify(value ?? null);
     this.emitMetric(MetricName.InvalidBinding, {
       key,
       type: typeof value,

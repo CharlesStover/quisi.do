@@ -36,9 +36,7 @@ describe('handleStaticPathname', (): void => {
       expectToHaveEmitPublicMetric(MetricName.FaviconIco);
       expectStatusCodeToBe(StatusCode.OK);
       expectHeadersToBe({
-        'access-control-allow-methods': 'GET',
         'access-control-max-age': '31536000',
-        allow: 'GET',
         'cache-control': 'immutable, max-age=31536000, public',
         'content-type': 'image/x-icon; charset=utf-8',
       });
@@ -59,9 +57,7 @@ describe('handleStaticPathname', (): void => {
       expectToHaveEmitPublicMetric(MetricName.RobotsTxt);
       expectStatusCodeToBe(StatusCode.OK);
       expectHeadersToBe({
-        'access-control-allow-methods': 'GET',
         'access-control-max-age': '31536000',
-        allow: 'GET',
         'cache-control': 'immutable, max-age=31536000, public',
         'content-type': 'text/plain; charset=utf-8',
       });

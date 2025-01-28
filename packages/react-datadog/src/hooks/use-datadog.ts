@@ -21,7 +21,6 @@ export default function useDatadog({
   user,
   ...rumInitConfiguration
 }: Props): void {
-  // States
   useInit({
     enabled,
     rumInitConfiguration: useShallowMemo({

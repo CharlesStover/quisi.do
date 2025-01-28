@@ -8,10 +8,11 @@ import {
 } from 'react';
 import { useHostname } from '../contexts/hostname.js';
 import TracerProviderProvider from '../modules/react-tracer/index.js';
+import noop from '../utils/noop.js';
 import WebTracerProvider from './web-tracer-provider.js';
 
 /*
-const EVENT_NAMES: readonly EventName[] = [
+Const EVENT_NAMES: readonly EventName[] = [
   'auxclick',
   'click',
   'close',
@@ -51,7 +52,7 @@ export default function TracerProviderProviderFeature({
   // Effects
   useEffect((): VoidFunction => {
     return (): void => {
-      void value.shutdown();
+      value.shutdown().catch(noop);
     };
   }, [value]);
 

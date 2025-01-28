@@ -6,8 +6,7 @@ import {
 import { PUBLIC } from './constants/metric-dimensions.js';
 import { MetricName } from './constants/metric-name.js';
 import isWorkerMetricName from './utils/is-worker-metric-name.js';
-
-const JSON_SPACE = 2;
+import mapDimensionsToString from './utils/map-dimensions-to-string.js';
 
 export default function handleMetric(
   this: Handler,
@@ -345,7 +344,7 @@ export default function handleMetric(
   }
 
   // Public metric
-  const dimensionsStr: string = JSON.stringify(dimensions, null, JSON_SPACE);
+  const dimensionsStr: string = mapDimensionsToString(dimensions);
   if (isPublic) {
     if (dimensionsStr === '{}') {
       this.log('Public metric:', name);

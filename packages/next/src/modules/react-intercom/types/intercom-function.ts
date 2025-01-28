@@ -2,7 +2,7 @@ export default interface IntercomFunction {
   // (event: 'getVisitorId'): string;
   (event: 'onHide' | 'onShow', callback: VoidFunction): void;
   (event: 'onUnreadCountChange', callback: (unreadCount: number) => void): void;
-  (event: 'showNewMessages', prePopulatedContent?: string | undefined): void;
+  (event: 'showNewMessages', prePopulatedContent?: string): void;
   (event: 'startTour', tourId: number): void;
   (
     event: 'boot',
@@ -14,13 +14,11 @@ export default interface IntercomFunction {
   (
     event: 'trackEvent',
     eventName: string,
-    metadata?: Record<string, string> | undefined,
+    metadata?: Record<string, string>,
   ): void;
   (
     event: 'update',
-    settings?:
-      | Readonly<Record<string, number | string | undefined>>
-      | undefined,
+    settings?: Readonly<Record<string, number | string | undefined>>,
   ): void;
 
   // Method `c` and property `q` are defined by Intercom.

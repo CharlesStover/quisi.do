@@ -5,10 +5,68 @@ import {
   // SdkInfo,
   type StackFrame as SentryStackFrame,
   type Stacktrace as SentryStacktrace,
-  // User,
-} from '@sentry/types';
+} from '@sentry/core';
 
 // https://docs.sentry.io/api/events/list-a-projects-events/
+
+interface FetchInvalidHttpCodeData {
+  readonly url: string;
+  readonly value: number;
+}
+
+interface HttpBreadcrumbData {
+  readonly method: 'GET' | 'POST';
+  readonly status_code: number;
+  readonly url: string;
+}
+
+interface NavigationBreadcrumbData {
+  readonly from: string;
+  readonly to: string;
+}
+
+interface SentryBreadcrumb<T extends string, C extends string, D = null> {
+  readonly category: C;
+  readonly data: D;
+  // Readonly event_id: null;
+  readonly level: 'info';
+  readonly message: string | null;
+  readonly timestamp: string;
+  readonly type: T;
+}
+
+interface StackFrame
+  extends Omit<
+    SentryStackFrame,
+    | 'abs_path'
+    | 'colno'
+    | 'in_app'
+    | 'instruction_addr'
+    | 'lineno'
+    | 'post_context'
+    | 'pre_context'
+  > {
+  readonly absPath: string | null;
+  readonly colNo: number | null;
+  readonly context: readonly [number, string][];
+  /*
+   * Readonly inApp: boolean | null;
+   * readonly instructionAddr: string | null;
+   */
+  readonly lineNo: number | null;
+}
+
+interface Stacktrace
+  extends Omit<SentryStacktrace, 'frames_omitted' | 'frames'> {
+  readonly frames: readonly StackFrame[];
+  // Readonly framesOmitted: readonly [number, number] | null;
+}
+
+interface Exception extends Omit<SentryException, 'stacktrace' | 'thread_id'> {
+  readonly rawStacktrace: Stacktrace;
+  readonly stacktrace: Stacktrace;
+  // Readonly threadId: number | null;
+}
 
 type Breadcrumb =
   | SentryBreadcrumb<'default', 'navigation', NavigationBreadcrumbData>
@@ -36,24 +94,6 @@ export interface Contexts extends SentryContexts {
   readonly browser: BrowserContext;
 }
 
-export type Entry =
-  | SentryEntry<'breadcrumbs', BreadcrumbsEntryData>
-  | SentryEntry<'exception', ExceptionEntryData>
-  | SentryEntry<'request', RequestEntryData>
-  | SentryEntry<string, unknown>;
-
-export type Error =
-  | SentryError<'clock_drift', ClockDriftData>
-  | SentryError<'fetch_invalid_http_code', FetchInvalidHttpCodeData>
-  | SentryError<'js_invalid_sourcemap_location', JsInvalidSourcemapLocationData>
-  | SentryError<string, unknown>;
-
-interface Exception extends Omit<SentryException, 'stacktrace' | 'thread_id'> {
-  readonly rawStacktrace: Stacktrace;
-  readonly stacktrace: Stacktrace;
-  // Readonly threadId: number | null;
-}
-
 interface ExceptionEntryData {
   /*
    * Readonly excOmitted: boolean;
@@ -62,37 +102,9 @@ interface ExceptionEntryData {
   readonly values: readonly Exception[];
 }
 
-interface FetchInvalidHttpCodeData {
-  readonly url: string;
-  readonly value: number;
-}
-
-interface HttpBreadcrumbData {
-  readonly method: 'GET' | 'POST';
-  readonly status_code: number;
-  readonly url: string;
-}
-
-interface JsInvalidSourcemapLocationData {
-  readonly column: number;
-  readonly row: number;
-  readonly source: string;
-}
-
-export interface Metadata extends MetadataBase {
-  readonly filename: string;
-  readonly function: string;
-  readonly type: 'ChunkLoadError' | 'Error' | 'OTLPExporterError';
-}
-
-interface MetadataBase {
-  readonly display_title_with_tree_label: boolean;
-  readonly value: string;
-}
-
-interface NavigationBreadcrumbData {
-  readonly from: string;
-  readonly to: string;
+interface SentryEntry<T extends string, D> {
+  readonly data: D;
+  readonly type: T;
 }
 
 interface RequestEntryData {
@@ -109,25 +121,39 @@ interface RequestEntryData {
   readonly url: string;
 }
 
-interface SentryBreadcrumb<T extends string, C extends string, D = null> {
-  readonly category: C;
-  readonly data: D;
-  // Readonly event_id: null;
-  readonly level: 'info';
-  readonly message: string | null;
-  readonly timestamp: string;
-  readonly type: T;
-}
-
-interface SentryEntry<T extends string, D> {
-  readonly data: D;
-  readonly type: T;
-}
+export type Entry =
+  | SentryEntry<'breadcrumbs', BreadcrumbsEntryData>
+  | SentryEntry<'exception', ExceptionEntryData>
+  | SentryEntry<'request', RequestEntryData>
+  | SentryEntry<string, unknown>;
 
 interface SentryError<T extends string, D> {
   readonly data: D;
   readonly message: string;
   readonly type: T;
+}
+
+interface JsInvalidSourcemapLocationData {
+  readonly column: number;
+  readonly row: number;
+  readonly source: string;
+}
+
+export type Error =
+  | SentryError<'clock_drift', ClockDriftData>
+  | SentryError<'fetch_invalid_http_code', FetchInvalidHttpCodeData>
+  | SentryError<'js_invalid_sourcemap_location', JsInvalidSourcemapLocationData>
+  | SentryError<string, unknown>;
+
+interface MetadataBase {
+  readonly display_title_with_tree_label: boolean;
+  readonly value: string;
+}
+
+export interface Metadata extends MetadataBase {
+  readonly filename: string;
+  readonly function: string;
+  readonly type: 'ChunkLoadError' | 'Error' | 'OTLPExporterError';
 }
 
 export default interface SentryProjectEvent {
@@ -157,33 +183,6 @@ export default interface SentryProjectEvent {
    * Readonly type: 'error';
    * readonly user: User;
    */
-}
-
-interface StackFrame
-  extends Omit<
-    SentryStackFrame,
-    | 'abs_path'
-    | 'colno'
-    | 'in_app'
-    | 'instruction_addr'
-    | 'lineno'
-    | 'post_context'
-    | 'pre_context'
-  > {
-  readonly absPath: string | null;
-  readonly colNo: number | null;
-  readonly context: readonly [number, string][];
-  /*
-   * Readonly inApp: boolean | null;
-   * readonly instructionAddr: string | null;
-   */
-  readonly lineNo: number | null;
-}
-
-interface Stacktrace
-  extends Omit<SentryStacktrace, 'frames_omitted' | 'frames'> {
-  readonly frames: readonly StackFrame[];
-  // Readonly framesOmitted: readonly [number, number] | null;
 }
 
 export interface Tag {

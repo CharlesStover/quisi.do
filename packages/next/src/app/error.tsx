@@ -1,15 +1,23 @@
-'use client'; // Error components must be Client Components
+'use client';
 
-import { withRecordError } from 'aws-rum-react';
+import { useRecordError } from 'aws-rum-react';
 import { type ReactElement, useEffect } from 'react';
+
+/**
+ * Error boundaries must `'use client'`.
+ *
+ *   Technical debt: If the application crashes, does this error boundary even
+ * have access to the `aws-rum-react` or `lazy-i18n` context provider?
+ */
 
 interface Props {
   readonly error: Error;
-  readonly recordError: (error: unknown) => void;
   readonly reset: VoidFunction;
 }
 
-function ErrorBoundary({ error, recordError, reset }: Props): ReactElement {
+export default function ErrorBoundary({ error, reset }: Props): ReactElement {
+  const recordError = useRecordError();
+
   useEffect((): void => {
     recordError(error);
   }, [error, recordError]);
@@ -22,5 +30,3 @@ function ErrorBoundary({ error, recordError, reset }: Props): ReactElement {
     </div>
   );
 }
-
-export default withRecordError(ErrorBoundary);

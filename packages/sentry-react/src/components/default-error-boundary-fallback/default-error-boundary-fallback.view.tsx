@@ -3,7 +3,7 @@ import type { ReactElement } from 'react';
 
 interface Props {
   readonly error: unknown;
-  // readonly resetError: () => void;
+  // Readonly resetError: () => void;
 }
 
 export default function DefaultErrorBoundaryFallback({

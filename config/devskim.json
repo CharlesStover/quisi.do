@@ -1,0 +1,5 @@
+{
+  "file-format": "sarif",
+  "output-file": "devskim-results.sarif",
+  "skip-git-ignored-files": true
+}

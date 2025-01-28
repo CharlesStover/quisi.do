@@ -232,6 +232,10 @@ common operations. You can access the human-readable `enum` by importing
 | `MetricName.R2Put`          | Emits after calling `putR2Bucket`                  |
 | `MetricName.R2PutError`     | Emits when `putR2Bucket` fails                     |
 
+### Dimensions
+
+When each metric is emit, it includes a set of dimensions as defined below.
+
 | Metric name                 | Dimension     | Type      |
 |-----------------------------|---------------|-----------|
 | `MetricName.D1All`          | `changedDb`   | `boolean` |
@@ -286,5 +290,14 @@ common operations. You can access the human-readable `enum` by importing
 |                             | `env`         | `string`  |
 |                             | `startTime`   | `number`  |
 
+## Testing
+
+The `ExportedHandler` and `Handler` classes were built with testing in mind.
+Their APIs are fully extensible and configurable across any testing environment.
+If you are testing with `vitest`, you can use
+[the `@quisido/worker-test` package][worker-test] for a collection of common
+testing patterns.
+
 [handlers]: https://developers.cloudflare.com/workers/runtime-apis/handlers/
 [the-struggle-of-state-management]: https://medium.com/@quisido/cloudflare-workers-dx-the-struggle-of-state-management-6cbc4e054544
+[worker-test]: https://www.npmjs.com/package/@quisido/worker-test

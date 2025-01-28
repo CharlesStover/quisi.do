@@ -1,7 +1,6 @@
-import { render } from "@testing-library/react";
-import type { Container } from "react-dom";
+import { render } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
-import Head from "./head.jsx";
+import Head from './head.jsx';
 
 const NONE = 0;
 
@@ -14,7 +13,7 @@ describe('Head', (): void => {
 
   it('should preconnect', (): void => {
     const { container } = render(<Head />, {
-      container: window.document as Container,
+      container: window.document,
     });
 
     const preconnects = container.querySelectorAll('link[rel="preconnect"]');

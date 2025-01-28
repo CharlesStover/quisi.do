@@ -1,8 +1,8 @@
 import sentryBrowserPackage from '@sentry/browser/package.json';
+import { type Event } from '@sentry/core';
 import sentryCorePackage from '@sentry/core/package.json';
 import sentryReactPackage1 from '@sentry/react/package.json';
 import sentryTracingPackage from '@sentry/tracing/package.json';
-import { type Event } from '@sentry/types';
 import sentryTypesPackage from '@sentry/types/package.json';
 import reactDomPackage from 'react-dom/package.json';
 import reactPackage from 'react/package.json';

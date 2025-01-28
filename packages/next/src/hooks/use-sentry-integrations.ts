@@ -2,8 +2,8 @@ import {
   browserProfilingIntegration,
   replayIntegration,
 } from '@sentry/browser';
+import type { Integration } from '@sentry/core';
 import { fullStoryIntegration } from '@sentry/fullstory';
-import type { Integration } from '@sentry/types';
 import { useFullstory, type FSApi } from 'fullstory-react';
 import { useMemo } from 'react';
 

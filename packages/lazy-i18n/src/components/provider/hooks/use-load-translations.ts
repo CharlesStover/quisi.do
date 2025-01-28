@@ -1,4 +1,4 @@
-import { useCallback, useRef, type MutableRefObject } from 'react';
+import { useCallback, useRef, type RefObject } from 'react';
 import isDefaultStringRecordExport from '../../../is/is-default-string-record-export.js';
 import isStringRecord from '../../../is/is-string-record.js';
 import type { DefaultExport } from '../../../types/default-export.js';
@@ -28,7 +28,7 @@ const DEFAULT_IS_FETCHED: Readonly<
 export default function useLoadTranslations<
   T extends Record<string, Translations | undefined>,
 >({ onLoad, onLoadError, translationsRecord }: Props<T>): State<keyof T> {
-  const isFetchedRef: MutableRefObject<
+  const isFetchedRef: RefObject<
     Readonly<Record<keyof T, boolean | undefined>>
   > = useRef(DEFAULT_IS_FETCHED);
 

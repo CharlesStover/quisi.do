@@ -1,12 +1,12 @@
 import { render } from '@testing-library/react';
 import assert from 'node:assert';
-import type {
-  ComponentType,
-  MutableRefObject,
-  PropsWithChildren,
-  ReactElement
+import {
+  type ComponentType,
+  type PropsWithChildren,
+  type ReactElement,
+  useContext,
+  useEffect,
 } from 'react';
-import { useContext } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import Loading from '../../components/loading/index.js';
 import LoadingComponentContext from '../../contexts/loading-component.js';
@@ -23,19 +23,18 @@ const TEST_TRANSLATIONS: Record<string, Translations> = {
 
 describe('Provider', (): void => {
   it('should set the contexts to their default values', (): void => {
-    const LoadingComponent: MutableRefObject<
-      ComponentType<unknown> | undefined
-    > = {
-      current: undefined,
-    };
-
-    const translate: MutableRefObject<TranslateFunctionType | undefined> = {
-      current: undefined,
-    };
+    let LoadingComponent: ComponentType<unknown> | null = null;
+    let translate: TranslateFunctionType | undefined;
 
     function TestComponent(): null {
-      LoadingComponent.current = useContext(LoadingComponentContext);
-      translate.current = useContext(TranslateFunctionContext);
+      const loadingComponent = useContext(LoadingComponentContext);
+      const translateFunction = useContext(TranslateFunctionContext);
+
+      useEffect((): void => {
+        LoadingComponent = loadingComponent;
+        translate = translateFunction;
+      }, [loadingComponent, translateFunction]);
+
       return null;
     }
 
@@ -49,16 +48,21 @@ describe('Provider', (): void => {
       },
     });
 
-    assert(typeof translate.current !== 'undefined');
-    expect(LoadingComponent.current).toBe(Loading);
-    expect(translate.current('cat')).toBe('gato');
+    assert(typeof translate !== 'undefined');
+    expect(LoadingComponent).toBe(Loading);
+    expect(translate('cat')).toBe('gato');
   });
 
   it('should set the contexts to the user-specified props', (): void => {
-    let LoadingComponent: ComponentType<unknown> | undefined = undefined;
+    let LoadingComponent: ComponentType<unknown> | null = null;
 
     function TestComponent(): null {
-      LoadingComponent = useContext(LoadingComponentContext);
+      const loadingComponent = useContext(LoadingComponentContext);
+
+      useEffect((): void => {
+        LoadingComponent = loadingComponent;
+      }, [loadingComponent]);
+
       return null;
     }
 

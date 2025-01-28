@@ -1,4 +1,4 @@
-import { OSTYPEVALUES_WINDOWS } from '@opentelemetry/semantic-conventions';
+import { OS_TYPE_VALUE_WINDOWS } from '@opentelemetry/semantic-conventions/incubating';
 import { describe, expect, it } from 'vitest';
 import mapOscpuToType from './map-oscpu-to-type.js';
 
@@ -21,7 +21,7 @@ describe('mapOscpuToType', (): void => {
       'Windows NT 6.2',
       'Windows NT 10.0',
     ]) {
-      expect(mapOscpuToType(oscpu)).toBe(OSTYPEVALUES_WINDOWS);
+      expect(mapOscpuToType(oscpu)).toBe(OS_TYPE_VALUE_WINDOWS);
     }
   });
 });

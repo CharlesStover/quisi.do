@@ -15,7 +15,9 @@ describe('mapV2OperationHandlersToApi', (): void => {
       },
       wrapper({ children }: PropsWithChildren): ReactElement {
         return (
-          <MockFullstory FullStory={TEST_FULLSTORY} orgId='test-org-id'>{children}</MockFullstory>
+          <MockFullstory FullStory={TEST_FULLSTORY} orgId="test-org-id">
+            {children}
+          </MockFullstory>
         );
       },
     });
@@ -39,7 +41,9 @@ describe('mapV2OperationHandlersToApi', (): void => {
       },
       wrapper({ children }: PropsWithChildren): ReactElement {
         return (
-          <MockFullstory onShutdown={TEST_SHUTDOWN} orgId='test-org-id'>{children}</MockFullstory>
+          <MockFullstory onShutdown={TEST_SHUTDOWN} orgId="test-org-id">
+            {children}
+          </MockFullstory>
         );
       },
     });

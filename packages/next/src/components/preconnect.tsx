@@ -11,10 +11,17 @@ export default function Preconnect({
   children,
   cors = false,
 }: Props): ReactElement {
+  const getCrossOrigin = (): 'anonymous' | 'use-credentials' | undefined => {
+    if (!cors) {
+      return;
+    }
+    return 'anonymous';
+  };
+
   return (
     <link
       as={as}
-      crossOrigin={cors ? 'anonymous' : undefined}
+      crossOrigin={getCrossOrigin()}
       href={children}
       rel="preconnect"
     />

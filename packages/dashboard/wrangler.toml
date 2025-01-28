@@ -1,0 +1,71 @@
+compatibility_date = "2024-11-11"
+main = "src/index.ts"
+name = "quisido-dashboard-dev"
+r2_buckets = [{ binding = 'CACHE', bucket_name = 'CACHE_DEV' }]
+tsconfig = "./tsconfig.json"
+upload_source_maps = true
+
+analytics_engine_datasets = [
+  { binding = "PRIVATE_DATASET", dataset = "DASHBOARD_PRIVATE_DEV" },
+  { binding = "PUBLIC_DATASET", dataset = "DASHBOARD_PUBLIC_DEV" },
+  { binding = "USAGE", dataset = "USAGE_DEV" },
+]
+
+routes = [
+  { custom_domain = true, pattern = "dashboard.quisi.do" }
+]
+
+[dev]
+local_protocol = "https"
+port = 9778              # parseInt('dashboard', 36) % 9999
+
+##############
+# Production #
+##############
+
+[env.production]
+name = "quisido-dashboard"
+r2_buckets = [{ binding = 'CACHE', bucket_name = 'CACHE' }]
+
+analytics_engine_datasets = [
+  { binding = "PRIVATE_DATASET", dataset = "DASHBOARD_PRIVATE" },
+  { binding = "PUBLIC_DATASET", dataset = "DASHBOARD_PUBLIC" },
+  { binding = "USAGE", dataset = "USAGE" },
+]
+
+[env.production.vars]
+CORS_ORIGIN = "https://quisi.do"
+ENVIRONMENT_NAME = "production"
+
+###########
+# Staging #
+###########
+
+[env.staging]
+name = "quisido-dashboard-staging"
+r2_buckets = [{ binding = 'CACHE', bucket_name = 'CACHE_STAGING' }]
+workers_dev = true
+
+analytics_engine_datasets = [
+  { binding = "PRIVATE_DATASET", dataset = "DASHBOARD_PRIVATE_STAGING" },
+  { binding = "PUBLIC_DATASET", dataset = "DASHBOARD_PUBLIC_STAGING" },
+  { binding = "USAGE", dataset = "USAGE_STAGING" },
+]
+
+routes = [
+  { custom_domain = true, pattern = "staging.dashboard.quisi.do" }
+]
+
+[env.staging.vars]
+CORS_ORIGIN = "https://staging.quisi.do"
+ENVIRONMENT_NAME = "staging"
+
+[observability.logs]
+enabled = true
+
+[placement]
+mode = "smart"
+
+[vars]
+CORS_ORIGIN = "https://localhost:3000"
+ENVIRONMENT_NAME = "development"

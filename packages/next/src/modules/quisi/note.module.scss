@@ -1,0 +1,19 @@
+.note {
+  align-items: stretch;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-bottom: 1rem;
+  padding-left: 2em;
+  padding-right: 2em;
+
+  // icon
+  > span {
+    align-items: center;
+    display: flex;
+    font-size: 4em;
+    justify-content: center;
+    line-height: 4rem;
+  }
+}

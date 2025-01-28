@@ -1,7 +1,7 @@
 import {
-  OSTYPEVALUES_LINUX,
-  OSTYPEVALUES_WINDOWS,
-} from '@opentelemetry/semantic-conventions';
+  OS_TYPE_VALUE_LINUX,
+  OS_TYPE_VALUE_WINDOWS,
+} from '@opentelemetry/semantic-conventions/incubating';
 
 export default function mapOscpuToType(
   oscpu: string | undefined,
@@ -12,17 +12,17 @@ export default function mapOscpuToType(
 
   // Windows
   if (oscpu.startsWith('Win')) {
-    return OSTYPEVALUES_WINDOWS;
+    return OS_TYPE_VALUE_WINDOWS;
   }
 
   switch (oscpu) {
     case 'Mac_PowerPC':
     case 'Macintosh':
     case 'X11':
-      return OSTYPEVALUES_LINUX;
+      return OS_TYPE_VALUE_LINUX;
 
     case 'WOW64':
-      return OSTYPEVALUES_WINDOWS;
+      return OS_TYPE_VALUE_WINDOWS;
 
     default:
       return oscpu.toLowerCase();

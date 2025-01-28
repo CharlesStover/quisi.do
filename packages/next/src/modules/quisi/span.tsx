@@ -18,9 +18,5 @@ export default function QuisiSpan({
   children,
   className,
 }: Props): ReactElement {
-  return (
-    <span className={className}>
-      {children}
-    </span>
-  );
+  return <span className={className}>{children}</span>;
 }

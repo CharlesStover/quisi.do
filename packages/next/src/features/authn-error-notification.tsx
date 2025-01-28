@@ -1,14 +1,10 @@
 import { type ErrorCode } from '@quisido/authn-shared';
-import I18n from 'lazy-i18n';
 import { type ComponentType, type ReactElement } from 'react';
+import { UnknownErrorMessage } from '../components/unknown-error-message.jsx';
 import { type NoActionNotification } from '../types/notification.js';
 import mapAuthnErrorCodeToNotification from '../utils/map-authn-error-code-to-notification.jsx';
 import mapHashToAuthnErrorCode from '../utils/map-hash-to-authn-error-code';
 import AuthnErrorsTranslationsProvider from './authn-errors-translations-provider.jsx';
-
-function AnUnknownErrorOccurred(): ReactElement {
-  return <I18n>An unknown error occurred.</I18n>;
-}
 
 export default class AuthnErrorNotification implements NoActionNotification {
   public readonly icon = '⚠️';
@@ -25,7 +21,7 @@ export default class AuthnErrorNotification implements NoActionNotification {
      * code into their address bar.
      */
     if (code === null) {
-      this.#Message = AnUnknownErrorOccurred;
+      this.#Message = UnknownErrorMessage;
     } else {
       const { Header, Message } = mapAuthnErrorCodeToNotification(code);
       this.#Message = Message;

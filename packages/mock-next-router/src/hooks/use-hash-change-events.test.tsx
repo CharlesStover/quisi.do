@@ -1,6 +1,14 @@
 import { act, render } from '@testing-library/react';
 import { createMemoryHistory, type MemoryHistory } from 'history';
-import { afterEach, assert, beforeEach, describe, expect, it, vi } from 'vitest';
+import {
+  afterEach,
+  assert,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
 import MockNextRouter from '../index.js';
 
 const FIRST = 0;

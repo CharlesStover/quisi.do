@@ -13,8 +13,6 @@ export default function withAwsRum<Props extends HocProps>(
     props: Omit<Props, keyof HocProps>,
   ): ReactElement {
     const awsRum: AwsRum = useAwsRum();
-
-    // eslint-disable-next-line  @typescript-eslint/consistent-type-assertions
     return <Component {...(props as Props)} awsRum={awsRum} />;
   };
 }

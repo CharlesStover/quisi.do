@@ -1,11 +1,11 @@
 'use client';
 
+import { isUndefined } from 'fmrs';
 import { useMemo } from 'react';
 import EMPTY_OBJECT from '../constants/empty-object.js';
 import type GoogleAnalyticsUserDataAddress from '../types/google-analytics-user-data-address.js';
 import type GoogleAnalyticsUserData from '../types/google-analytics-user-data.js';
 import type UserData from '../types/user-data.js';
-import isUndefined from '../utils/is-undefined.js';
 
 export default function useUserData(
   userData: UserData = EMPTY_OBJECT,

@@ -118,6 +118,7 @@ export default class TestExportedHandler {
 
     const response: Response = await fetch(request, this.#env, {
       passThroughOnException: TEST_PASS_THROUGH_ON_EXCEPTION,
+      props: null,
       waitUntil(promise: Promise<void>): void {
         promises.push(promise.catch(noop));
       },

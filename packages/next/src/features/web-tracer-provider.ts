@@ -48,9 +48,9 @@ export default class WebTracerProviderImpl extends WebTracerProvider {
 
     super({
       resource: new Resource(hostname),
+      spanProcessors: [batchSpanProcessor],
     });
 
-    this.addSpanProcessor(batchSpanProcessor);
     this.register({
       contextManager: this.contextManager,
       propagator: this.compositePropagator,

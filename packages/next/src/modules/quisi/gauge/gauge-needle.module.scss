@@ -1,0 +1,8 @@
+.needle {
+  transition-delay: 0s;
+  transition-duration: 1s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+  transform: rotate(0rad) translate(50%, 0);
+  transform-origin: 50% 100%;
+}

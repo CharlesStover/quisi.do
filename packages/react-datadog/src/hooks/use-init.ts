@@ -1,5 +1,5 @@
 import type { RumInitConfiguration, datadogRum } from '@datadog/browser-rum';
-import { useEffect, useRef, type MutableRefObject } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 import useDatadogRum from './use-datadog-rum.js';
 
 interface Props {
@@ -15,7 +15,7 @@ export default function useInit({
   const rum: typeof datadogRum = useDatadogRum();
 
   // States
-  const lastRumInitConfiguration: MutableRefObject<RumInitConfiguration | null> =
+  const lastRumInitConfiguration: RefObject<RumInitConfiguration | null> =
     useRef(null);
 
   // Effects

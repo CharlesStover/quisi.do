@@ -10,7 +10,7 @@ import noop from '../utils/noop.js';
 interface Props {
   readonly history: MemoryHistory;
   readonly prefetch?:
-    | ((href: string, options?: PrefetchOptions | undefined) => void)
+    | ((href: string, options?: PrefetchOptions) => void)
     | undefined;
 }
 

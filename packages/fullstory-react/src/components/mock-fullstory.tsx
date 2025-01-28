@@ -24,7 +24,7 @@ export default function MockFullstory({
   children,
   orgId,
   ...props
-}: PropsWithChildren<Props  & { orgId: string }>): ReactElement {
+}: PropsWithChildren<Props & { orgId: string }>): ReactElement {
   const memoizedProps: Props = useShallowMemo(props);
 
   const value: typeof fullStoryBrowser =
@@ -51,9 +51,7 @@ export default function MockFullstory({
 
   return (
     <FullstoryBrowser.Provider value={value}>
-      <Fullstory orgId={orgId}>
-        {children}
-      </Fullstory>
+      <Fullstory orgId={orgId}>{children}</Fullstory>
     </FullstoryBrowser.Provider>
   );
 }

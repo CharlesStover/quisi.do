@@ -17,6 +17,10 @@
       "path": "packages/csp",
     },
     {
+      "name": "Dashboard",
+      "path": "packages/dashboard",
+    },
+    {
       "name": "authn-shared",
       "path": "packages/authn-shared",
     },
@@ -99,6 +103,8 @@
   ],
 
   "settings": {
+    "codeQL.createQuery.qlPackLocation": "./",
+    "eslint.format.enable": true,
     "eslint.nodePath": "../../.yarn/sdks",
     "eslint.useFlatConfig": true,
     "typescript.enablePromptUseWorkspaceTsdk": true,

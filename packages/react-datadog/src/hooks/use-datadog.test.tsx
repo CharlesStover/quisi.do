@@ -37,9 +37,10 @@ const TEST_RUM: typeof datadogRum = {
   setUserProperty: vi.fn(),
   setViewContext: vi.fn(),
   setViewContextProperty: vi.fn(),
+  setViewName: vi.fn(),
   startDurationVital: vi.fn(),
   startSessionReplayRecording: TEST_START_SESSION_REPLAY_RECORDING,
-  startView: vi.fn() as typeof datadogRum['startView'],
+  startView: vi.fn() as (typeof datadogRum)['startView'],
   stopDurationVital: vi.fn(),
   stopSession: vi.fn(),
   stopSessionReplayRecording: TEST_STOP_SESSION_REPLAY_RECORDING,
@@ -47,14 +48,12 @@ const TEST_RUM: typeof datadogRum = {
 };
 
 const TEST_USER: User = {
-  id: 'test-id',
   email: 'foo@bar.com',
+  id: 'test-id',
   name: 'test-name',
 };
 
-function Wrapper({
-  children,
-}: Readonly<PropsWithChildren>): ReactElement {
+function Wrapper({ children }: Readonly<PropsWithChildren>): ReactElement {
   return (
     <StrictMode>
       <DatadogRumContext.Provider value={TEST_RUM}>

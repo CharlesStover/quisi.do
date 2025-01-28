@@ -25,7 +25,12 @@ export default function ContentSecurityPolicySourceFile({
   );
 
   if (href === null) {
-    return <code>{children}{lineColumn}</code>;
+    return (
+      <code>
+        {children}
+        {lineColumn}
+      </code>
+    );
   }
 
   return (
@@ -36,7 +41,8 @@ export default function ContentSecurityPolicySourceFile({
       href={href}
       title=""
     >
-      {children}{lineColumn}
+      {children}
+      {lineColumn}
     </Link>
   );
 }

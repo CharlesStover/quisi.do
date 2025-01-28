@@ -1,7 +1,7 @@
 'use client';
 
-import type { BrowserOptions } from '@sentry/react';
-import type { User } from '@sentry/types';
+import { type User } from '@sentry/core';
+import { type BrowserOptions } from '@sentry/react';
 import { useEffect } from 'react';
 import useShallowMemo from 'use-shallow-memo';
 import useSentrySdk from '../../hooks/use-sentry-sdk.js';

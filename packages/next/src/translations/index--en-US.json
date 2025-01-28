@@ -1,7 +1,19 @@
 {
+  "$n problems": "$n problems",
+  "$n warnings": "$n warnings",
+  "1 problem": "1 problem",
+  "1 warning": "1 warning",
+  "An unknown error occurred.": "An unknown error occurred.",
+  "Audit": "Audit",
   "Authenticate": "Authenticate",
+  "Charities": "Charities",
+  "Cookie policy": "Cookie policy",
   "front end platform service": "front end platform service",
+  "Our Patreon client is misconfigured.": "Our Patreon client is misconfigured.",
   "Privacy policy": "Privacy policy",
+  "Problems": "Problems",
+  "quisi.do's dashboard": "quisi.do's dashboard",
   "Support": "Support",
-  "Terms of service": "Terms of service"
+  "Terms of service": "Terms of service",
+  "Warnings": "Warnings"
 }

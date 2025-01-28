@@ -4,5 +4,5 @@ export const ECMA_FEATURES: Required<ESLintECMAFeatures> = {
   experimentalObjectRestSpread: true,
   globalReturn: false,
   impliedStrict: true,
-  jsx: false,
+  jsx: true,
 };

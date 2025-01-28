@@ -1,0 +1,12 @@
+.section {
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  > * {
+    // 3 columns with ~3% padding between them
+    flex-basis: 30%;
+  }
+}

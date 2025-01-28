@@ -40,8 +40,6 @@ export default class AuthnTestResponse implements TestResponse {
 
       const codeStr: string = code.toString();
       testResponse.expectHeadersToBe({
-        'access-control-allow-methods': 'GET',
-        allow: 'GET',
         'content-location': `https://host.test.quisi.do${returnPath}#authn:error=${codeStr}`,
         location: `https://host.test.quisi.do${returnPath}#authn:error=${codeStr}`,
       });

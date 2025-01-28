@@ -11,6 +11,6 @@ export { THRESHOLDS } from './thresholds.js';
 const USER_CONFIG: UserConfig = defineConfig({
   plugins: PLUGIN_OPTIONS,
   test: INLINE_CONFIG,
-});
+}) as UserConfig;
 
 export default USER_CONFIG;

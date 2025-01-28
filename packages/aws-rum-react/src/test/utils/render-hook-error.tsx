@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 
 const TEST_ID = 'render-hook-error';
 
-export default function renderHookError<S>(useHook: () => S): string {
+export default function renderHookError(useHook: () => unknown): string {
   function TestHookErrorComponent(): ReactElement | null {
     try {
       useHook();

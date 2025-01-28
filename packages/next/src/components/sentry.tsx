@@ -26,9 +26,7 @@ function Sentry({
   return (
     <SentryReact
       attachStacktrace
-      autoSessionTracking
       dsn={dsn}
-      enableTracing
       enabled
       environment={environment}
       integrations={integrations}

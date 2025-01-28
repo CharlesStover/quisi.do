@@ -5,7 +5,7 @@ export default function describeViewport(
   height: number,
   fn: VoidFunction,
 ): void {
-  describe(`${width}x${height}`, (): void => {
+  describe(`${width.toString()}x${height.toString()}`, (): void => {
     before((): void => {
       cy.viewport(width, height);
     });

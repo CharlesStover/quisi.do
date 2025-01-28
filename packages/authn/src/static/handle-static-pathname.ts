@@ -1,7 +1,6 @@
+import { FaviconIcoResponse, RobotsTxtResponse } from 'cloudflare-utils';
 import type AuthnFetchHandler from '../authn-fetch-handler.js';
 import { MetricName } from '../constants/metric-name.js';
-import FaviconResponse from './favicon-response.js';
-import RobotsResponse from './robots-response.js';
 import RootResponse from './root-response.js';
 import { StaticPathname } from './static-pathname.js';
 
@@ -21,12 +20,16 @@ export default function handleStaticPathname(
   switch (pathname) {
     case StaticPathname.Favicon: {
       this.emitPublicMetric(MetricName.FaviconIco);
-      return new FaviconResponse();
+      return new FaviconIcoResponse({
+        headers: new Headers(),
+      });
     }
 
     case StaticPathname.Robots: {
       this.emitPublicMetric(MetricName.RobotsTxt);
-      return new RobotsResponse();
+      return new RobotsTxtResponse({
+        headers: new Headers(),
+      });
     }
 
     case StaticPathname.Root: {

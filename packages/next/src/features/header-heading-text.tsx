@@ -15,10 +15,8 @@ export default function HeaderHeadingText(): ReactNode {
   }
 
   return (
-    <Link feature="header-heading-text" href='/' title="quisi.do">
-      <span className={TEXT_CLASS_NAME}>
-        quisi.do
-      </span>
+    <Link feature="header-heading-text" href="/" title="quisi.do">
+      <span className={TEXT_CLASS_NAME}>quisi.do</span>
     </Link>
   );
 }

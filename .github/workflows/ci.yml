@@ -61,7 +61,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Scan
-        uses: microsoft/DevSkim-Action@v1
+        uses: microsoft/devskim-action@v1
+        with:
+          options-json: config/devskim.json
       - name: Upload SARIF
         uses: github/codeql-action/upload-sarif@v2
         with:
@@ -108,6 +110,7 @@ jobs:
           CLOUDWATCH_RUM_GUEST_ROLE_ARN: arn:aws:iam::787801101157:role/RUM-Monitor-us-west-2-787801101157-5868679251171-Unauth
           CLOUDWATCH_RUM_IDENTITY_POOL_ID: us-west-2:9d109fe9-23c3-4e33-a478-143f93445968
           CSP_ORIGIN: https://localhost:6586
+          DASHBOARD_ENDPOINT: https://localhost:9778/
           DD_API_KEY: ${{ secrets.DATADOG_API_KEY }}
           DD_APPLICATION_ID: 3e55f7ef-a00a-41ab-9857-baf7ad00daa1
           DD_CLIENT_TOKEN: pubee0abcc4e08cef309eda284ba1d44e32

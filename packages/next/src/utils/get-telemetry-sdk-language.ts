@@ -1,12 +1,12 @@
 import {
-  TELEMETRYSDKLANGUAGEVALUES_NODEJS,
-  TELEMETRYSDKLANGUAGEVALUES_WEBJS,
+  TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS,
+  TELEMETRY_SDK_LANGUAGE_VALUE_WEBJS,
 } from '@opentelemetry/semantic-conventions';
 
 export default function getTelemetrySdkLanguage(): string {
   if (typeof window === 'undefined') {
-    return TELEMETRYSDKLANGUAGEVALUES_NODEJS;
+    return TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS;
   }
 
-  return TELEMETRYSDKLANGUAGEVALUES_WEBJS;
+  return TELEMETRY_SDK_LANGUAGE_VALUE_WEBJS;
 }

@@ -1,10 +1,10 @@
 'use client';
 
 import type { datadogRum } from '@datadog/browser-rum';
+import { isUndefined } from 'fmrs';
 import { useEffect } from 'react';
 import useShallowMemo from 'use-shallow-memo';
 import type User from '../types/user.js';
-import isUndefined from '../utils/is-undefined.js';
 import useDatadogRum from './use-datadog-rum.js';
 
 const DEFAULT_USER: Readonly<User> = Object.freeze({});

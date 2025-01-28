@@ -1,8 +1,11 @@
 'use client';
 
-import type { BrowserOptions, ReportDialogOptions } from '@sentry/react';
-import { ErrorBoundary } from '@sentry/react';
-import type { Scope, User } from '@sentry/types';
+import type { Scope, User } from '@sentry/core';
+import {
+  type BrowserOptions,
+  ErrorBoundary,
+  type ReportDialogOptions,
+} from '@sentry/react';
 import type { ReactElement, ReactNode } from 'react';
 import DefaultErrorBoundaryFallback from '../../components/default-error-boundary-fallback/index.js';
 import type FallbackRenderParams from '../../types/fallback-render-params.js';

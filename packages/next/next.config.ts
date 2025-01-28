@@ -31,6 +31,7 @@ export default withNextJsBundleAnalyzer({
   trailingSlash: true,
 
   devIndicators: {
+    appIsrStatus: false,
     buildActivity: true,
     buildActivityPosition: 'bottom-right',
   },
@@ -44,6 +45,7 @@ export default withNextJsBundleAnalyzer({
     'CLOUDWATCH_RUM_GUEST_ROLE_ARN',
     'CLOUDWATCH_RUM_IDENTITY_POOL_ID',
     'CSP_ORIGIN',
+    'DASHBOARD_ENDPOINT',
     'DD_APPLICATION_ID',
     'DD_CLIENT_TOKEN',
     'DEPLOYMENT_ENVIRONMENT',
@@ -87,10 +89,6 @@ export default withNextJsBundleAnalyzer({
 
     sri: {
       algorithm: 'sha512',
-    },
-
-    turbo: {
-      treeShaking: true,
     },
 
     // Error: Jest worker encountered 1 child process exceptions, exceeding retry limit

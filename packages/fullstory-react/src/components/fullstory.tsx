@@ -11,7 +11,11 @@ export default function Fullstory({
   ...snippetOptions
 }: PropsWithChildren<SnippetOptions>): ReactElement {
   // Contexts
-  const { FullStory, init, isInitialized } = useFullStoryBrowser();
+  const {
+    FullStory: fullStoryApi,
+    init,
+    isInitialized,
+  } = useFullStoryBrowser();
 
   // States
   const memoizedSnippetOptions: SnippetOptions = useShallowMemo(snippetOptions);
@@ -24,12 +28,12 @@ export default function Fullstory({
 
     init(memoizedSnippetOptions);
     return (): void => {
-      FullStory('shutdown');
+      fullStoryApi('shutdown');
     };
-  }, [FullStory, init, isInitialized, memoizedSnippetOptions]);
+  }, [fullStoryApi, init, isInitialized, memoizedSnippetOptions]);
 
   return (
-    <FullstoryContext.Provider value={FullStory}>
+    <FullstoryContext.Provider value={fullStoryApi}>
       {children}
     </FullstoryContext.Provider>
   );

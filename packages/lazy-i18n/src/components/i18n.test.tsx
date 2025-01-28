@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react';
-import type { PropsWithChildren, ReactElement } from 'react';
-import { act } from 'react-dom/test-utils';
+import { type PropsWithChildren, type ReactElement, act } from 'react';
 import { describe, it, vi } from 'vitest';
 import I18n, { I18nProvider } from '../index.js';
 

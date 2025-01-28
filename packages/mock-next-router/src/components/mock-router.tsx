@@ -36,6 +36,7 @@ export default function MockRouter({
       isFallback: false,
       subscription: createPromise,
       wrapApp: noop,
+
       pageLoader: {
         getMiddleware: noop,
       },

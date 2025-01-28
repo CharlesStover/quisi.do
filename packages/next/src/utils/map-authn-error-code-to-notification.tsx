@@ -1,38 +1,11 @@
-/* eslint-disable react/jsx-key */
 import { ErrorCode } from '@quisido/authn-shared';
 import I18n from 'lazy-i18n';
 import type { ReactElement } from 'react';
-import Link from '../modules/quisi/link.js';
+import AlarmExistsMessage from '../components/alarm-exists-message.jsx';
+import CsrfLink from '../components/csrf-link.jsx';
+import MisconfiguredPatreonClientMessage from '../components/misconfigured-patreon-client-message.jsx';
+import { UnknownErrorMessage } from '../components/unknown-error-message.jsx';
 import type Notification from '../types/notification.js';
-
-function AlarmExists(): ReactElement {
-  return <I18n>The developer has been notified. Please try again later.</I18n>;
-};
-
-function CsrfLink(): ReactElement {
-  return (
-    <Link
-      feature="utils/map-authn-error-code-to-content"
-      href="https://en.wikipedia.org/wiki/Cross-site_request_forgery"
-      title="Cross-site request forgery - Wikipedia"
-    >
-      <I18n>cross-site request forgery</I18n>
-    </Link>
-  );
-}
-
-function MisconfiguredPatreonClient(): ReactElement {
-  return (
-    <>
-      <I18n>Our Patreon client is misconfigured.</I18n>
-      <AlarmExists />
-    </>
-  );
-}
-
-function UnknownError(): ReactElement {
-  return <I18n>An unknown error occurred.</I18n>;
-}
 
 export default function mapAuthnErrorCodeToNotification(
   code: ErrorCode,
@@ -65,7 +38,7 @@ export default function mapAuthnErrorCodeToNotification(
               <I18n>
                 Your session cannot currently be paired with your account.
               </I18n>
-              <AlarmExists />
+              <AlarmExistsMessage />
             </>
           );
         },
@@ -78,8 +51,8 @@ export default function mapAuthnErrorCodeToNotification(
         Message(): ReactElement {
           return (
             <>
-              <UnknownError />
-              <AlarmExists />
+              <UnknownErrorMessage />
+              <AlarmExistsMessage />
             </>
           );
         },
@@ -95,7 +68,7 @@ export default function mapAuthnErrorCodeToNotification(
           return (
             <>
               <I18n>Your account information cannot currently be read.</I18n>
-              <AlarmExists />
+              <AlarmExistsMessage />
             </>
           );
         },
@@ -111,7 +84,7 @@ export default function mapAuthnErrorCodeToNotification(
           return (
             <>
               <I18n>The authentication service is offline.</I18n>
-              <AlarmExists />
+              <AlarmExistsMessage />
             </>
           );
         },
@@ -127,7 +100,7 @@ export default function mapAuthnErrorCodeToNotification(
           return (
             <>
               <I18n>Patreon rejected the authentication attempt.</I18n>
-              <AlarmExists />
+              <AlarmExistsMessage />
             </>
           );
         },
@@ -153,8 +126,10 @@ export default function mapAuthnErrorCodeToNotification(
         Message(): ReactElement {
           return (
             <>
-              <I18n>We were unable to view your Patreon account information.</I18n>
-              <AlarmExists />
+              <I18n>
+                We were unable to view your Patreon account information.
+              </I18n>
+              <AlarmExistsMessage />
             </>
           );
         },
@@ -162,7 +137,7 @@ export default function mapAuthnErrorCodeToNotification(
 
     case ErrorCode.InvalidPatreonOAuthClientId:
       return {
-        Message: MisconfiguredPatreonClient,
+        Message: MisconfiguredPatreonClientMessage,
 
         Header(): ReactElement {
           return <I18n>Invalid client ID</I18n>;
@@ -171,7 +146,7 @@ export default function mapAuthnErrorCodeToNotification(
 
     case ErrorCode.InvalidPatreonOAuthClientSecret:
       return {
-        Message: MisconfiguredPatreonClient,
+        Message: MisconfiguredPatreonClientMessage,
 
         Header(): ReactElement {
           return <I18n>Invalid client secret</I18n>;
@@ -180,7 +155,7 @@ export default function mapAuthnErrorCodeToNotification(
 
     case ErrorCode.InvalidPatreonOAuthHost:
       return {
-        Message: MisconfiguredPatreonClient,
+        Message: MisconfiguredPatreonClientMessage,
 
         Header(): ReactElement {
           return <I18n>Invalid host</I18n>;
@@ -189,23 +164,10 @@ export default function mapAuthnErrorCodeToNotification(
 
     case ErrorCode.InvalidPatreonOAuthRedirectUri:
       return {
-        Message: MisconfiguredPatreonClient,
+        Message: MisconfiguredPatreonClientMessage,
 
         Header(): ReactElement {
           return <I18n>Invalid redirect URI</I18n>;
-        },
-      };
-
-    case ErrorCode.InvalidPatreonAccessTokenRequest:
-      return {
-        Header(): ReactElement {
-          return <I18n>Invalid token</I18n>;
-        },
-
-        Message(): ReactElement {
-          return (
-            <I18n>Your Patreon authentication token could not be verified.</I18n>
-          );
         },
       };
 
@@ -219,23 +181,9 @@ export default function mapAuthnErrorCodeToNotification(
           return (
             <>
               <I18n>Application usage cannot currently be tracked.</I18n>
-              <AlarmExists />
+              <AlarmExistsMessage />
             </>
           );
-        },
-      };
-
-    case ErrorCode.InvalidUserId:
-      return {
-        Header(): ReactElement {
-          return <I18n>Invalid database row</I18n>;
-        },
-
-        Message(): ReactElement {
-          return <>
-            <I18n>We were unable to retrieve your user ID.</I18n>
-            <AlarmExists />
-          </>;
         },
       };
 
@@ -251,7 +199,7 @@ export default function mapAuthnErrorCodeToNotification(
               <I18n>
                 Your session cannot currently be paired with your account.
               </I18n>
-              <AlarmExists />
+              <AlarmExistsMessage />
             </>
           );
         },
@@ -274,23 +222,7 @@ export default function mapAuthnErrorCodeToNotification(
           return (
             <>
               <I18n>Your account information cannot currently be read.</I18n>
-              <AlarmExists />
-            </>
-          );
-        },
-      };
-
-    case ErrorCode.MissingInvalidPatreonAccessTokenRequestDescription:
-      return {
-        Header: UnknownError,
-
-        Message(): ReactElement {
-          return (
-            <>
-              <I18n>
-                Patreon rejected the authentication attempt, but did not disclose why.
-              </I18n>
-              <AlarmExists />
+              <AlarmExistsMessage />
             </>
           );
         },
@@ -306,7 +238,7 @@ export default function mapAuthnErrorCodeToNotification(
           return (
             <>
               <I18n>The authentication service is offline.</I18n>
-              <AlarmExists />
+              <AlarmExistsMessage />
             </>
           );
         },
@@ -322,7 +254,7 @@ export default function mapAuthnErrorCodeToNotification(
           return (
             <>
               <I18n>Patreon did not provide an access token.</I18n>
-              <AlarmExists />
+              <AlarmExistsMessage />
             </>
           );
         },
@@ -337,8 +269,10 @@ export default function mapAuthnErrorCodeToNotification(
         Message(): ReactElement {
           return (
             <>
-              <I18n>We were unable to view your Patreon account information.</I18n>
-              <AlarmExists />
+              <I18n>
+                We were unable to view your Patreon account information.
+              </I18n>
+              <AlarmExistsMessage />
             </>
           );
         },
@@ -354,24 +288,15 @@ export default function mapAuthnErrorCodeToNotification(
           return (
             <>
               <I18n>Patreon did not provide your ID.</I18n>
-              <AlarmExists />
+              <AlarmExistsMessage />
             </>
           );
         },
       };
 
-    case ErrorCode.MissingPatreonOAuthClientID:
-      return {
-        Message: MisconfiguredPatreonClient,
-
-        Header(): ReactElement {
-          return <I18n>Missing client ID</I18n>;
-        },
-      };
-
     case ErrorCode.MissingPatreonOAuthClientSecret:
       return {
-        Message: MisconfiguredPatreonClient,
+        Message: MisconfiguredPatreonClientMessage,
 
         Header(): ReactElement {
           return <I18n>Missing client secret</I18n>;
@@ -392,15 +317,16 @@ export default function mapAuthnErrorCodeToNotification(
     case ErrorCode.MissingPatreonTokenErrorResponseBody:
     case ErrorCode.MissingPatreonTokenErrorResponseCode:
       return {
-        Header: UnknownError,
+        Header: UnknownErrorMessage,
 
         Message(): ReactElement {
           return (
             <>
               <I18n>
-                Patreon refused to issue an access token, but did not disclose why.
+                Patreon refused to issue an access token, but did not disclose
+                why.
               </I18n>
-              <AlarmExists />
+              <AlarmExistsMessage />
             </>
           );
         },
@@ -414,16 +340,18 @@ export default function mapAuthnErrorCodeToNotification(
 
         Message(): ReactElement {
           return (
-            <I18n csrf={<CsrfLink />}>
-              Ensure cookies are enabled. To prevent $csrf, authentication requires
-              visiting this website first.
+            <I18n
+              csrf={
+                <CsrfLink feature="authn-error-code/messing-session-id-cookie" />
+              }
+            >
+              Ensure cookies are enabled. To prevent $csrf, authentication
+              requires visiting this website first.
             </I18n>
           );
         },
       };
 
-    case ErrorCode.MissingState:
-    case ErrorCode.MissingStateReturnPath:
     case ErrorCode.MissingStateSessionId:
       return {
         Header(): ReactElement {
@@ -432,15 +360,17 @@ export default function mapAuthnErrorCodeToNotification(
 
         Message(): ReactElement {
           return (
-            <I18n csrf={<CsrfLink />}>
+            <I18n
+              csrf={
+                <CsrfLink feature="authn-error-code/missing-state-session-id" />
+              }
+            >
               To prevent $csrf, authentication must originate from this website.
             </I18n>
           );
         },
       };
 
-    case ErrorCode.InvalidStateReturnPath:
-    case ErrorCode.NonJsonState:
     case ErrorCode.NonObjectState:
       return {
         Header(): ReactElement {
@@ -449,27 +379,11 @@ export default function mapAuthnErrorCodeToNotification(
 
         Message(): ReactElement {
           return (
-            <I18n csrf={<CsrfLink />}>
+            <I18n
+              csrf={<CsrfLink feature="authn-error-code/non-object-state" />}
+            >
               To prevent $csrf, authentication must originate from this website.
             </I18n>
-          );
-        },
-      };
-
-    case ErrorCode.NonJsonPatreonIdentityResponse:
-      return {
-        Header(): ReactElement {
-          return <I18n>Invalid Patreon identity</I18n>;
-        },
-
-        Message(): ReactElement {
-          return (
-            <>
-              <I18n>
-                We were unable to view your Patreon account information.
-              </I18n>
-              <AlarmExists />
-            </>
           );
         },
       };
@@ -485,107 +399,14 @@ export default function mapAuthnErrorCodeToNotification(
           return (
             <>
               <I18n>
-              Patreon refused to issue an access token, but did not disclose why.
+                Patreon refused to issue an access token, but did not disclose
+                why.
               </I18n>
-              <AlarmExists />
+              <AlarmExistsMessage />
             </>
           );
         },
       };
-
-    case ErrorCode.NonJsonPatreonTokenResponse:
-    case ErrorCode.NonObjectPatreonAccessTokenResponse:
-      return {
-        Header(): ReactElement {
-          return <I18n>Invalid response</I18n>;
-        },
-
-        Message(): ReactElement {
-          return (
-            <>
-              <I18n>We were unable to retrieve your access token.</I18n>
-              <AlarmExists />
-            </>
-          );
-        },
-      };
-
-    case ErrorCode.NonObjectPatreonIdentityResponse:
-      return {
-        Header(): ReactElement {
-          return <I18n>Invalid response</I18n>;
-        },
-
-        Message(): ReactElement {
-          return (
-            <>
-              <I18n>We were unable to view your Patreon account information.</I18n>
-              <AlarmExists />
-            </>
-          );
-        },
-      };
-
-    case ErrorCode.NonOkPatreonIdentityResponseStatus:
-      return {
-        Header(): ReactElement {
-          return <I18n>An unknown error occurred.</I18n>;
-        },
-
-        Message(): ReactElement {
-          return (
-            <>
-              <I18n>We were unable to view your Patreon account information.</I18n>
-              <AlarmExists />
-            </>
-          );
-        },
-      };
-
-    case ErrorCode.InvalidInvalidPatreonAccessTokenRequestDescription:
-      return {
-        Message(): ReactElement {
-          return (
-            <>
-              <I18n>An unknown error occurred.</I18n>
-              <AlarmExists />
-            </>
-          );
-        },
-      };
-
-    case ErrorCode.NonStringPatreonAccessToken:
-      return {
-        Header(): ReactElement {
-          return <I18n>Invalid access token</I18n>;
-        },
-
-        Message(): ReactElement {
-          return (
-            <>
-              <I18n>We were unable to retrieve your access token.</I18n>
-              <AlarmExists />
-            </>
-          );
-        },
-      };
-
-    case ErrorCode.NonStringPatreonIdentityId:
-      return {
-        Header(): ReactElement {
-          return <I18n>Invalid ID</I18n>;
-        },
-
-        Message(): ReactElement {
-          return (
-            <>
-              <I18n>We were unable to retrieve your user ID.</I18n>
-              <AlarmExists />
-            </>
-          );
-        },
-      };
-
     case ErrorCode.NotFound:
       return {
         Header(): ReactElement {
@@ -594,19 +415,6 @@ export default function mapAuthnErrorCodeToNotification(
 
         Message(): ReactElement {
           return <I18n>The URL you requested does not exist.</I18n>;
-        },
-      };
-
-    case ErrorCode.PatreonIdentityForbidden:
-      return {
-        Header(): ReactElement {
-          return <I18n>Forbidden</I18n>;
-        },
-
-        Message(): ReactElement {
-          return (
-            <I18n>Patreon rejected the authentication attempt.</I18n>
-          );
         },
       };
 
@@ -621,23 +429,9 @@ export default function mapAuthnErrorCodeToNotification(
         },
       };
 
-    case ErrorCode.UnknownPatreonAccessTokenError:
-      return {
-        Header: UnknownError,
-
-        Message(): ReactElement {
-          return (
-            <>
-              <I18n>We were unable to retrieve your access token.</I18n>
-              <AlarmExists />
-            </>
-          );
-        },
-      };
-
     default:
       return {
-        Message: UnknownError,
+        Message: UnknownErrorMessage,
       };
   }
 }

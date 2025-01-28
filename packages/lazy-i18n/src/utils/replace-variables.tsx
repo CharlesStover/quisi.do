@@ -3,12 +3,9 @@ import isPrimitive from '../is/is-primitive.js';
 import mapNodeToFragment from '../map/map-node-to-fragment.js';
 import type { ReactNodeTranslationValue } from '../types/react-node-translation-value.js';
 import type { StringTranslationValue } from '../types/string-translation-value.js';
+import createNewItems from './create-new-items.js';
 
 const ARRAY_INDEX_OFFSET = 1;
-const LAST_ITEM = 1;
-const SINGLE = 1;
-const SKIP = 2;
-const START = 0;
 const VARIABLE_PREFIX = '$';
 
 export default function replaceVariables(
@@ -28,26 +25,30 @@ export default function replaceVariables(
   }
 
   const newTranslation: ReactNode[] = [translation];
+  const SKIP = 2;
   for (const [variable, value] of Object.entries(vars)) {
-    for (let i = START; i < newTranslation.length; i += SKIP) {
+    for (
+      let translationIndex = 0;
+      translationIndex < newTranslation.length;
+      translationIndex += SKIP
+    ) {
       /**
        * Every even index is a string.
        * Every odd index may be number, string, or ReactNode.
        * 'Hello $world!' --> ['Hello ', <World />, '!']
        */
-      const item: string = newTranslation[i] as string;
-      const newItems: ReactNode[] = item.split(`${VARIABLE_PREFIX}${variable}`);
-      if (newItems.length > SINGLE) {
-        for (let j = START; j < newItems.length - LAST_ITEM; j += SKIP) {
-          newItems.splice(j + ARRAY_INDEX_OFFSET, START, value as ReactNode);
-        }
-        newTranslation.splice(i, VARIABLE_PREFIX.length, ...newItems);
-        i += newItems.length - ARRAY_INDEX_OFFSET;
-      }
+      const item: string = newTranslation[translationIndex] as string;
+      const newItems: ReactNode[] = createNewItems(item, variable, value);
+      newTranslation.splice(
+        translationIndex,
+        VARIABLE_PREFIX.length,
+        ...newItems,
+      );
+      translationIndex += newItems.length - ARRAY_INDEX_OFFSET;
     }
   }
 
-  // string variables
+  // String variables
   if (newTranslation.every(isPrimitive)) {
     return newTranslation.join('');
   }

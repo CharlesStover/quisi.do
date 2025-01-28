@@ -2,10 +2,16 @@
 
 import { HoneycombWebSDK } from '@honeycombio/opentelemetry-web';
 import { getWebAutoInstrumentations } from '@opentelemetry/auto-instrumentations-web';
-import { useEffect, useMemo, type PropsWithChildren, type ReactElement } from 'react';
+import {
+  useEffect,
+  useMemo,
+  type PropsWithChildren,
+  type ReactElement,
+} from 'react';
 import { HoneycombProvider } from '../contexts/honeycomb.js';
 import { useHostname } from '../contexts/hostname.js';
 import Resource from '../features/resource.js';
+import noop from '../utils/noop.js';
 
 interface Props {
   readonly apiKey: string;
@@ -20,7 +26,7 @@ function useSdk(sdk: HoneycombWebSDK | undefined): void {
 
     sdk.start();
     return (): void => {
-      sdk.shutdown();
+      sdk.shutdown().catch(noop);
     };
   }, [sdk]);
 }
@@ -32,22 +38,21 @@ export default function Honeycomb({
 }: PropsWithChildren<Props>): ReactElement {
   const hostname: string = useHostname();
 
-  const sdk: HoneycombWebSDK | undefined = useMemo(
-    (): HoneycombWebSDK | undefined => {
-      if (typeof window === 'undefined') {
-        return;
-      }
+  const sdk: HoneycombWebSDK | undefined = useMemo(():
+    | HoneycombWebSDK
+    | undefined => {
+    if (typeof window === 'undefined') {
+      return;
+    }
 
-      return new HoneycombWebSDK({
-        apiKey,
-        autoDetectResources: true,
-        instrumentations: [getWebAutoInstrumentations()],
-        resource: new Resource(hostname),
-        serviceName,
-      });
-    },
-    [apiKey, hostname, serviceName],
-  );
+    return new HoneycombWebSDK({
+      apiKey,
+      autoDetectResources: true,
+      instrumentations: [getWebAutoInstrumentations()],
+      resource: new Resource(hostname),
+      serviceName,
+    });
+  }, [apiKey, hostname, serviceName]);
 
   useSdk(sdk);
 

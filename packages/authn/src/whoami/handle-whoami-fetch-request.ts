@@ -106,6 +106,7 @@ export default async function handleWhoAmIFetchRequest(
         JSON.stringify({
           error: err.cause,
         }),
+
         new WhoAmIResponseInit(StatusCode.InternalServerError, {
           accessControlAllowOrigin: this.accessControlAllowOrigin,
         }),
@@ -118,6 +119,7 @@ export default async function handleWhoAmIFetchRequest(
       JSON.stringify({
         error: ErrorCode.Unknown,
       }),
+
       new WhoAmIResponseInit(StatusCode.InternalServerError, {
         accessControlAllowOrigin: this.accessControlAllowOrigin,
       }),

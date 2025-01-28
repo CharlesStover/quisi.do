@@ -1,4 +1,4 @@
-compatibility_date = "2023-10-30"
+compatibility_date = "2024-11-11"
 main = "src/index.ts"
 name = "quisido-csp-dev"
 tsconfig = "./tsconfig.json"
@@ -35,6 +35,10 @@ d1_databases = [
   { binding = "CSP_DB", database_id = "2ea99634-ee39-491d-94d9-f8e688d1cb92", database_name = "csp", preview_database_id = "a5299acf-42a8-47bb-95e7-c062bc772b48" },
 ]
 
+routes = [
+  { custom_domain = true, pattern = "csp.quisi.do" }
+]
+
 [env.production.vars]
 ENVIRONMENT_NAME = "production"
 
@@ -56,8 +60,15 @@ d1_databases = [
   { binding = "CSP_DB", database_id = "a5299acf-42a8-47bb-95e7-c062bc772b48", database_name = "csp-staging" },
 ]
 
+routes = [
+  { custom_domain = true, pattern = "staging.csp.quisi.do" }
+]
+
 [env.staging.vars]
 ENVIRONMENT_NAME = "staging"
+
+[observability.logs]
+enabled = true
 
 [placement]
 mode = "smart"

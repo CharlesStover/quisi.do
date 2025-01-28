@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    ".wrangler/": true,
+    "coverage/": true,
+    "dist/": true,
+    "node_modules/": true,
+    ".eslintcache": true,
+    "vitest.config.ts.timestamp-*-*.mjs": true
+  }
+}

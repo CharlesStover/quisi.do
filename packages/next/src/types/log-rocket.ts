@@ -1,11 +1,8 @@
 import type LR from 'logrocket';
 
-type First = 0;
-type Second = 1;
-
 export type LogRocket = typeof LR;
 
-export type LogRocketOptions = Parameters<LogRocket['init']>[Second] extends
+export type LogRocketOptions = Parameters<LogRocket['init']>[1] extends
   | infer U
   | undefined
   ? U
@@ -13,8 +10,8 @@ export type LogRocketOptions = Parameters<LogRocket['init']>[Second] extends
 
 export type LogRocketRequest = Parameters<
   Required<Required<LogRocketOptions>['network']>['requestSanitizer']
->[First];
+>[0];
 
 export type LogRocketResponse = Parameters<
   Required<Required<LogRocketOptions>['network']>['responseSanitizer']
->[First];
+>[0];

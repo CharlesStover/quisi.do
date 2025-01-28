@@ -25,10 +25,8 @@ describe('WhoAmI', (): void => {
     expectHeadersToBe({
       'access-control-allow-credentials': 'true',
       'access-control-allow-headers': 'Baggage, Sentry-Trace',
-      'access-control-allow-methods': 'GET, OPTIONS',
       'access-control-allow-origin': '*',
       'access-control-max-age': '600',
-      allow: 'GET, OPTIONS',
       'content-type': 'text/json; charset=utf-8',
     });
   });
@@ -53,10 +51,8 @@ describe('WhoAmI', (): void => {
     expectHeadersToBe({
       'access-control-allow-credentials': 'true',
       'access-control-allow-headers': 'Baggage, Sentry-Trace',
-      'access-control-allow-methods': 'GET, OPTIONS',
       'access-control-allow-origin': '*',
       'access-control-max-age': '600',
-      allow: 'GET, OPTIONS',
       'content-type': 'text/json; charset=utf-8',
     });
   });
@@ -103,10 +99,8 @@ describe('WhoAmI', (): void => {
     expectHeadersToBe({
       'access-control-allow-credentials': 'true',
       'access-control-allow-headers': 'Baggage, Sentry-Trace',
-      'access-control-allow-methods': 'GET, OPTIONS',
       'access-control-allow-origin': '*',
       'access-control-max-age': '600',
-      allow: 'GET, OPTIONS',
       'content-type': 'text/json; charset=utf-8',
     });
 
@@ -163,10 +157,8 @@ describe('WhoAmI', (): void => {
     expectHeadersToBe({
       'access-control-allow-credentials': 'true',
       'access-control-allow-headers': 'Baggage, Sentry-Trace',
-      'access-control-allow-methods': 'GET, OPTIONS',
       'access-control-allow-origin': '*',
       'access-control-max-age': '600',
-      allow: 'GET, OPTIONS',
       'content-type': 'text/json; charset=utf-8',
     });
 
@@ -217,10 +209,8 @@ describe('WhoAmI', (): void => {
     expectHeadersToBe({
       'access-control-allow-credentials': 'true',
       'access-control-allow-headers': 'Baggage, Sentry-Trace',
-      'access-control-allow-methods': 'GET, OPTIONS',
       'access-control-allow-origin': '*',
       'access-control-max-age': '600',
-      allow: 'GET, OPTIONS',
       'content-type': 'text/json; charset=utf-8',
     });
 

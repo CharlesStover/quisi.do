@@ -1,9 +1,10 @@
+@use '../modules/quisi/dark-mode.scss';
+
 .emoji {
   font-family: "Noto Color Emoji";
+  pointer-events: none;
+  user-select: none;
   vertical-align: bottom;
 
-  // Un-invert.
-  @media (prefers-color-scheme: dark) {
-    filter: invert(95%);
-  }
+  @include dark-mode.media-query-filter;
 }

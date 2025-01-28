@@ -1,11 +1,11 @@
-import type { ReactElement } from "react";
+import type { ReactElement } from 'react';
 import CloudflareInsights from '../components/cloudflare-insights.js';
-import NetworkErrorLogging from "../components/network-error-logging.jsx";
-import RocketLoaderHotfix from "../components/rocket-loader-hotfix.jsx";
+import NetworkErrorLogging from '../components/network-error-logging.jsx';
+import RocketLoaderHotfix from '../components/rocket-loader-hotfix.jsx';
 import GoogleFonts from '../features/google-fonts.js';
 import Preconnect from '../features/preconnect.js';
-import Clarity from "../modules/react-clarity/index.jsx";
-import validateString from "../utils/validate-string.js";
+import Clarity from '../modules/react-clarity/index.jsx';
+import validateString from '../utils/validate-string.js';
 
 const CLARITY_TAG: string = validateString(process.env['CLARITY_TAG']);
 const isProduction: boolean = process.env.NODE_ENV === 'production';

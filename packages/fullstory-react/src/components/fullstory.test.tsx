@@ -23,7 +23,7 @@ describe('Fullstory', (): void => {
         init={TEST_INIT}
         isInitialized={TEST_IS_INITIALIZED}
         orgId="test-org-id"
-      />
+      />,
     );
 
     expect(TEST_INIT).toHaveBeenCalledOnce();
@@ -39,7 +39,7 @@ describe('Fullstory', (): void => {
         init={TEST_INIT}
         isInitialized={TEST_IS_INITIALIZED}
         orgId="test-org-id"
-      />
+      />,
     );
 
     // Re-render
@@ -49,7 +49,7 @@ describe('Fullstory', (): void => {
         init={TEST_INIT}
         isInitialized={TEST_IS_INITIALIZED}
         orgId="test-org-id"
-      />
+      />,
     );
 
     expect(TEST_INIT).toHaveBeenCalledOnce();
@@ -62,7 +62,7 @@ describe('Fullstory', (): void => {
         init={TEST_INIT}
         isInitialized={TEST_IS_INITIALIZED}
         orgId="test-org-id"
-      />
+      />,
     );
 
     render(
@@ -71,7 +71,7 @@ describe('Fullstory', (): void => {
         init={TEST_INIT}
         isInitialized={TEST_IS_INITIALIZED}
         orgId="test-org-id"
-      />
+      />,
     );
 
     expect(TEST_INIT).toHaveBeenCalledOnce();
@@ -84,7 +84,7 @@ describe('Fullstory', (): void => {
         init={TEST_INIT}
         isInitialized={TEST_IS_INITIALIZED}
         orgId="test-org-id"
-      />
+      />,
     );
 
     unmount();

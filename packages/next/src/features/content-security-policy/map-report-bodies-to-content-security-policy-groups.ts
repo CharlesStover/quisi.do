@@ -5,6 +5,8 @@ import type Group from './content-security-policy-group.js';
 import type Report from './content-security-policy-report.js';
 import mapBlockedUrlToOriginPathname from './map-blocked-url-to-origin-pathname.js';
 
+const INCREMENT = 1;
+
 const sortReportsByCount = (
   { count: count1 }: Report,
   { count: count2 }: Report,
@@ -91,7 +93,7 @@ export default function mapReportBodiesToContentSecurityPolicyGroups(
         ...reports.filter(not(findReport)),
         {
           ...report,
-          count: report.count + 1,
+          count: report.count + INCREMENT,
         },
       ]);
     }

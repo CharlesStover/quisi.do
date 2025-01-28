@@ -1,3 +1,5 @@
+@use '../modules/quisi/dark-mode.scss';
+
 $font-size: 14px;
 $line-height: 20px;
 
@@ -53,7 +55,5 @@ $line-height: 20px;
   max-height: 100%;
   min-height: 100%;
 
-  @media (prefers-color-scheme: dark) {
-    filter: invert(95%);
-  }
+  @include dark-mode.media-query-filter;
 }

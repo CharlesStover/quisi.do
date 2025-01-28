@@ -16,7 +16,7 @@ function TestWrapper({ children }: Readonly<PropsWithChildren>): ReactElement {
       FullStory={TEST_FULLSTORY}
       init={TEST_INIT}
       isInitialized={TEST_IS_INITIALIZED}
-      orgId='test-org-id'
+      orgId="test-org-id"
     >
       {children}
     </MockFullstory>

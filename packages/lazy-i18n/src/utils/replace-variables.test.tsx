@@ -21,8 +21,8 @@ describe('replaceVariables', (): void => {
     expect(
       replaceVariables('my $one $two $three string', {
         one: 1,
-        two: 'two',
         three: 3,
+        two: 'two',
       }),
     ).toBe('my 1 two 3 string');
   });
@@ -30,9 +30,9 @@ describe('replaceVariables', (): void => {
   it('should replace React node variables', (): void => {
     const { getByText } = render(
       <>
-        {replaceVariables('$hello, $world? $n! $world $hello.', {
+        {replaceVariables('$hello, $world? $num! $world $hello.', {
           hello: <TestHello />,
-          n: 1234,
+          num: 1234,
           world: <TestWorld />,
         })}
       </>,

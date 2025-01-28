@@ -1,9 +1,7 @@
 'use client';
 
-import type { AwsRumConfig } from 'aws-rum-web';
-import { AwsRum } from 'aws-rum-web';
-import type { ReactElement, ReactNode } from 'react';
-import { useMemo } from 'react';
+import { AwsRum, type AwsRumConfig } from 'aws-rum-web';
+import { type ReactElement, type ReactNode, useMemo } from 'react';
 import AwsRumContext from '../../contexts/aws-rum.js';
 
 interface Props extends AwsRumConfig {

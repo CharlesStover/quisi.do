@@ -54,10 +54,7 @@ export default function Banner({
       >
         {children}
       </div>
-      <button
-        className={BUTTON_CLASS_NAME}
-        {...buttonProps}
-      >
+      <button className={BUTTON_CLASS_NAME} {...buttonProps}>
         <Emoji>❌</Emoji>
       </button>
     </aside>

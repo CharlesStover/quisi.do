@@ -10,7 +10,7 @@ describe('handleFetchRequest', (): void => {
       new TestCspExportedHandler();
 
     // Act
-    const { expectStatusCodeToBe } = await fetch('/', {
+    const { expectStatusCodeToBe } = await fetch('/abc/', {
       method: 'TEST',
     });
 

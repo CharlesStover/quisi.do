@@ -1,12 +1,7 @@
-import {
-  useEffect,
-  useRef,
-  type MutableRefObject,
-  type RefObject,
-} from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 
 export default function useMountedRef(): RefObject<boolean> {
-  const isMountedRef: MutableRefObject<boolean> = useRef(true);
+  const isMountedRef: RefObject<boolean> = useRef(true);
 
   useEffect(
     (): VoidFunction => (): void => {

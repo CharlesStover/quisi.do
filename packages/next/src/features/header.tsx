@@ -29,10 +29,7 @@ function Header(): ReactElement {
   const { displayFontFamily } = useTheme();
 
   return (
-    <header
-      className={CLASS_NAME}
-      style={{ backgroundColor }}
-    >
+    <header className={CLASS_NAME} style={{ backgroundColor }}>
       <div>
         <Heading />
         <span

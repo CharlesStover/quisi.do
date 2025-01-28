@@ -1,6 +1,6 @@
 export default async function fetch(
   input: RequestInfo | URL,
-  init?: RequestInit | undefined,
+  init?: RequestInit,
 ): Promise<Response> {
   return window.fetch(input, init);
 }

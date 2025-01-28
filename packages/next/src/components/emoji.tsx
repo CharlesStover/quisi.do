@@ -22,5 +22,9 @@ export default function Emoji({
 }: PropsWithChildren<Props>): ReactElement {
   const className: string = getClassName(classNameProp);
 
-  return <span className={className}>{children}</span>;
+  return (
+    <span aria-hidden className={className} role="img">
+      {children}
+    </span>
+  );
 }

@@ -1,7 +1,6 @@
 /// <reference types="@cloudflare/workers-types" />
 import { MetricName } from '../constants/metric-name.js';
 import type CspFetchHandler from '../csp-fetch-handler.js';
-import isAllowedMethod from '../utils/is-allowed-method.js';
 import isStaticPathname from '../utils/is-static-pathname.js';
 import mapPathnameToProjectId from '../utils/map-pathname-to-project-id.js';
 import MethodNotAllowedResponse from '../utils/method-not-allowed-response.js';
@@ -14,15 +13,6 @@ import handleStaticPathname from './handle-static-pathname.js';
 export default async function handleFetchRequest(
   this: CspFetchHandler,
 ): Promise<Response> {
-  // Method
-  if (!isAllowedMethod(this.requestMethod)) {
-    this.emitPublicMetric(MetricName.MethodNotAllowed, {
-      method: this.requestMethod,
-    });
-
-    return new MethodNotAllowedResponse(this.requestMethod);
-  }
-
   // Static responses
   if (isStaticPathname(this.requestPathname)) {
     return handleStaticPathname.call(this, this.requestPathname);
@@ -56,4 +46,10 @@ export default async function handleFetchRequest(
     case 'POST':
       return await handlePost.call(this, projectId);
   }
+
+  this.emitPublicMetric(MetricName.MethodNotAllowed, {
+    method: this.requestMethod,
+  });
+
+  return new MethodNotAllowedResponse(this.requestMethod);
 }

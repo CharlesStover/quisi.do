@@ -13,9 +13,13 @@ import styles from './theme.module.scss';
 
 const BORDER_COLOR_OPACITY = 0.15;
 const CLASS_NAME: string = validateString(styles['theme']);
-const INNER_BORDER_COLOR_CLASS_NAME: string = validateString(styles['border-inner']);
+const INNER_BORDER_COLOR_CLASS_NAME: string = validateString(
+  styles['border-inner'],
+);
 const MAX_COLOR = 255;
-const OUTER_BORDER_COLOR_CLASS_NAME: string = validateString(styles['border-outer']);
+const OUTER_BORDER_COLOR_CLASS_NAME: string = validateString(
+  styles['border-outer'],
+);
 
 const invert = (color: number): number => MAX_COLOR - color;
 

@@ -1,17 +1,25 @@
 'use client';
 
 import { useRouter } from 'next/navigation.js';
-import { useEffect, type MouseEvent, type ReactElement, type ReactNode } from 'react';
+import {
+  useEffect,
+  type MouseEvent,
+  type ReactElement,
+  type ReactNode,
+} from 'react';
 import innerText from 'react-innertext';
+import useEmit from '../../hooks/use-emit/use-emit.js';
 import useTheme from '../../hooks/use-theme.js';
 
 interface BaseProps {
   readonly children?: ReactNode;
   readonly className?: string | undefined;
-  readonly feature: string; // Used for tracking events
   readonly follow?: boolean | undefined;
   readonly label?: string | undefined;
   readonly title: string;
+
+  // Used for tracking events
+  readonly feature: string;
 }
 
 interface HrefProps {
@@ -37,7 +45,7 @@ export default function Link({
   title,
 }: Props): ReactElement {
   // Contexts
-  const emit = (..._args: unknown[])=>{};// useEmit();
+  const emit = useEmit();
   const router = useRouter();
   const { primaryHex } = useTheme();
 
@@ -67,8 +75,8 @@ export default function Link({
       href={href}
       rel={rel}
       title={title}
-      onClick={(e: MouseEvent<HTMLAnchorElement>): void => {
-        e.preventDefault();
+      onClick={(event: MouseEvent<HTMLAnchorElement>): void => {
+        event.preventDefault();
         emit('click', {
           feature,
           label: innerText(children),

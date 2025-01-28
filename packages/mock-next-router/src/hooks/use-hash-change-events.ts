@@ -1,14 +1,12 @@
 import type { Location, MemoryHistory, Update } from 'history';
-import { useEffect, useRef, type MutableRefObject } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 
 const ORIGIN = 'https://localhost';
 
 export default function useHashChangeEvents(
   memoryHistory: MemoryHistory,
 ): void {
-  const locationRef: MutableRefObject<Location> = useRef(
-    memoryHistory.location,
-  );
+  const locationRef: RefObject<Location> = useRef(memoryHistory.location);
 
   // Effects
   useEffect((): VoidFunction => {

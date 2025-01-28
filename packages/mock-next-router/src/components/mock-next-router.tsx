@@ -14,7 +14,7 @@ import type { PrefetchOptions } from 'next/dist/shared/lib/app-router-context.sh
 interface Props {
   readonly history?: MemoryHistory | undefined;
   readonly prefetch?:
-    | ((href: string, options?: PrefetchOptions | undefined) => void)
+    | ((href: string, options?: PrefetchOptions) => void)
     | undefined;
 }
 

@@ -1,5 +1,5 @@
 import type { MemoryHistory, Update } from 'history';
-import { useEffect, useMemo, useRef, type MutableRefObject } from 'react';
+import { useEffect, useMemo, useRef, type RefObject } from 'react';
 import useForceUpdate from 'use-force-update';
 
 export default function useUrlSearchParams(
@@ -7,9 +7,7 @@ export default function useUrlSearchParams(
 ): URLSearchParams {
   // States
   const forceUpdate: VoidFunction = useForceUpdate();
-  const searchRef: MutableRefObject<string> = useRef(
-    memoryHistory.location.search,
-  );
+  const searchRef: RefObject<string> = useRef(memoryHistory.location.search);
 
   // Effects
   useEffect((): VoidFunction => {

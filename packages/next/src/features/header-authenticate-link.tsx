@@ -35,6 +35,7 @@ function useAuthenticateLink(): State {
   // States
   return {
     title: translate('Authenticate') ?? 'Authenticate',
+
     href: useMemo((): string => {
       const authSearch: string = new URLSearchParams({
         client_id: PATREON_OAUTH_CLIENT_ID,

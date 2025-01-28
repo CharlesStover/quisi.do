@@ -1,3 +1,4 @@
+import I18n from 'lazy-i18n';
 import { memo, type ReactElement } from 'react';
 import Link from '../modules/quisi/link.jsx';
 import validateString from '../utils/validate-string.js';
@@ -16,7 +17,7 @@ function Footer(): ReactElement | null {
             href="/cookies/"
             title="quisi.do cookie policy"
           >
-            cookie policy
+            <I18n>Cookie policy</I18n>
           </Link>
         </li>
         <li>
@@ -25,12 +26,12 @@ function Footer(): ReactElement | null {
             href="/privacy/"
             title="quisi.do privacy policy"
           >
-            privacy policy
+            <I18n>Privacy policy</I18n>
           </Link>
         </li>
         <li>
           <Link feature="footer" href="/tos/" title="quisi.do terms of service">
-            terms of service
+            <I18n>Terms of service</I18n>
           </Link>
         </li>
       </ul>

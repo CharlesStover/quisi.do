@@ -1,8 +1,10 @@
 'use client';
 
 import { useMemo } from 'react';
-import mapObjectToDependencies from '../utils/map-object-to-dependencies.js';
+import mapValueToDependencies from '../utils/map-value-to-dependencies.js';
 
-export default function useShallowMemo<T extends object>(obj: T): T {
-  return useMemo((): T => obj, mapObjectToDependencies(obj));
+export default function useShallowMemo<
+  T extends boolean | null | number | object | string | undefined,
+>(obj: T): T {
+  return useMemo((): T => obj, mapValueToDependencies(obj));
 }

@@ -1,4 +1,4 @@
-compatibility_date = "2023-10-30"
+compatibility_date = "2024-11-11"
 kv_namespaces = [{ binding = "AUTHN_USER_IDS", id = "AUTHN_USER_IDS" }]
 main = "src/index.ts"
 name = "quisido-authn-dev"
@@ -42,6 +42,10 @@ kv_namespaces = [
   { binding = "AUTHN_USER_IDS", id = "4dca15c74cdb4fba9680ee52d46c1534", preview_id = "235afbbf5e6a4a6bbadf56ea33d07b3e" },
 ]
 
+routes = [
+  { custom_domain = true, pattern = "a.quisi.do" }
+]
+
 [env.production.vars]
 COOKIE_DOMAIN = "quisi.do"
 ENVIRONMENT_NAME = "production"
@@ -73,6 +77,10 @@ kv_namespaces = [
   { binding = "AUTHN_USER_IDS", id = "235afbbf5e6a4a6bbadf56ea33d07b3e" },
 ]
 
+routes = [
+  { custom_domain = true, pattern = "staging.a.quisi.do" }
+]
+
 [env.staging.vars]
 COOKIE_DOMAIN = "localhost"
 ENVIRONMENT_NAME = "staging"
@@ -80,6 +88,9 @@ HOST = "localhost:3000"
 PATREON_OAUTH_CLIENT_ID = "4kCae2AHZdKyyuonaPzhGillxJ2HyyLQEDu8StvMtixBHmWmN4KVG0QVP6R45tjG"
 PATREON_OAUTH_HOST = "https://www.patreon.com"
 PATREON_OAUTH_REDIRECT_URI = "https://localhost:5882/patreon/"
+
+[observability.logs]
+enabled = true
 
 [placement]
 mode = "smart"

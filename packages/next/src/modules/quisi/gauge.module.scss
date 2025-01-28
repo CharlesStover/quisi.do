@@ -1,0 +1,5 @@
+@use './dark-mode.scss';
+
+.gauge {
+  @include dark-mode.media-query-filter;
+}

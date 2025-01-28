@@ -15,8 +15,6 @@ export default class FatalOAuthErrorResponseInit extends ResponseInitImpl {
       status: StatusCode.SeeOther,
 
       headers: new Headers({
-        'access-control-allow-methods': 'GET',
-        allow: 'GET',
         'content-location': location,
         location,
       }),

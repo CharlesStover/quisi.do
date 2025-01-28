@@ -3,9 +3,5 @@ export default function mapRequestInfoToString(info: RequestInfo): string {
     return info;
   }
 
-  if ('url' in info) {
-    return info.url;
-  }
-
-  return info.toString();
+  return info.url;
 }

@@ -24,6 +24,7 @@ describe('useSentry', (): void => {
   it('should call init', (): void => {
     renderHook(useSentry, {
       wrapper: Wrapper,
+
       initialProps: {
         allowUrls: [],
         attachStacktrace: true,
@@ -86,6 +87,7 @@ describe('useSentry', (): void => {
   it('should support a default user', (): void => {
     renderHook(useSentry, {
       wrapper: Wrapper,
+
       initialProps: {
         dsn: 'test-dsn',
       },
@@ -105,6 +107,7 @@ describe('useSentry', (): void => {
 
     renderHook(useSentry, {
       wrapper: Wrapper,
+
       initialProps: {
         dsn: 'test-dsn',
         user: TEST_USER,

@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react';
-import type { PropsWithChildren, ReactElement } from 'react';
-import { useEffect } from 'react';
+import { type PropsWithChildren, type ReactElement, useEffect } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { MockAwsRumProvider, withRecordError } from '../index.js';
 

@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-  type MutableRefObject,
-  type RefObject,
-} from 'react';
+import { useCallback, useMemo, useRef, useState, type RefObject } from 'react';
 import mapTranslationsRecordToLoadedTranslationsRecord from '../../map/map-translations-record-to-loaded-translations-record.js';
 import RunnableTranslateFunction from '../../runnables/runnable-translate-function.js';
 import type TranslateFunction from '../../types/translate-function.js';
@@ -54,10 +47,10 @@ export default function useProvider<
     );
   }
 
-  const asyncLoadFallbackTranslationsEffect: MutableRefObject<Promise<unknown> | null> =
+  const asyncLoadFallbackTranslationsEffect: RefObject<Promise<unknown> | null> =
     useRef(null);
 
-  const asyncLoadTranslationsEffect: MutableRefObject<Promise<unknown> | null> =
+  const asyncLoadTranslationsEffect: RefObject<Promise<unknown> | null> =
     useRef(null);
 
   const [loadedTranslationsRecord, setLoadedTranslationsRecord] = useState(

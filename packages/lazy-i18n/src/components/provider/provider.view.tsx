@@ -1,7 +1,11 @@
 'use client';
 
-import type { ComponentType, ReactElement, ReactNode } from 'react';
-import { memo } from 'react';
+import {
+  type ComponentType,
+  type ReactElement,
+  type ReactNode,
+  memo,
+} from 'react';
 import Loading from '../../components/loading/index.js';
 import LoadingComponentContext from '../../contexts/loading-component.js';
 import TranslateFunctionContext from '../../contexts/translate-function.js';

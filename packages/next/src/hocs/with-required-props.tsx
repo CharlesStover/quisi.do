@@ -19,8 +19,8 @@ export default function withRequiredProps<
     }
 
     // 'Readonly<Omit<Props, K> & Optional<Pick<Props, K>>>' is assignable to
-    //   the constraint of type 'Props', but 'Props' could be instantiated with
-    //   a different subtype of constraint 'object'.
+    //   The constraint of type 'Props', but 'Props' could be instantiated with
+    //   A different subtype of constraint 'object'.
     return <Component {...(props as Props)} />;
   };
 }

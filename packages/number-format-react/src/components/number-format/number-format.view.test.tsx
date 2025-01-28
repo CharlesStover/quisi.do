@@ -7,7 +7,7 @@ describe('NumberFormat', (): void => {
     const { getByText } = render(
       <>
         The number is <NumberFormat>21</NumberFormat>.
-      </>
+      </>,
     );
 
     getByText('The number is 21.');
@@ -17,7 +17,7 @@ describe('NumberFormat', (): void => {
     const { getByText } = render(
       <>
         The number is <NumberFormat>{24}</NumberFormat>.
-      </>
+      </>,
     );
 
     getByText('The number is 24.');

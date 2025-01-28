@@ -1,6 +1,6 @@
-import type { ReactElement } from "react";
-import useTheme from "../../hooks/use-theme.js";
-import validateString from "../../utils/validate-string.js";
+import type { ReactElement } from 'react';
+import useTheme from '../../hooks/use-theme.js';
+import validateString from '../../utils/validate-string.js';
 import styles from './content-security-policy-report-list-item.module.scss';
 import type ContentSecurityPolicyReport from './content-security-policy-report.js';
 import ContentSecurityPolicySourceFile from './content-security-policy-source-file.jsx';
@@ -29,8 +29,7 @@ export default function ContentSecurityPolicyReportListItem({
       >
         {sourceFile}
       </ContentSecurityPolicySourceFile>{' '}
-      {
-        count > SINGLE &&
+      {count > SINGLE && (
         <span
           className={COUNT_CLASS_NAME}
           style={{
@@ -39,7 +38,7 @@ export default function ContentSecurityPolicyReportListItem({
         >
           &times;{count}
         </span>
-      }
+      )}
     </li>
   );
 }

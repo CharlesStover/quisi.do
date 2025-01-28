@@ -81,6 +81,7 @@ export default async function handleAnalyticsFetchRequest(
       JSON.stringify({
         error: ErrorCode.Unknown,
       }),
+
       new AnalyticsResponseInit(StatusCode.InternalServerError, {
         accessControlAllowOrigin: this.accessControlAllowOrigin,
       }),

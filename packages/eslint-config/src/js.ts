@@ -7,7 +7,7 @@ import { LANGUAGE_OPTIONS } from './language-options.js';
 import { LINTER_OPTIONS } from './linter-options.js';
 
 export default {
-  files: ['**/*.js', '**/*.mjs'],
+  files: ['**/*.js', '**/*.jsx', '**/*.mjs'],
   languageOptions: LANGUAGE_OPTIONS,
   linterOptions: LINTER_OPTIONS,
   name: '@quisido/js',
@@ -22,6 +22,7 @@ export default {
     ...js.configs.recommended.rules,
     ...prettierConfig.rules,
     ...prettierPluginRecommended.rules,
+    camelcase: ['error', { properties: 'never' }],
     'func-name-matching': 'off',
     'no-bitwise': 'off',
     'no-continue': 'off',

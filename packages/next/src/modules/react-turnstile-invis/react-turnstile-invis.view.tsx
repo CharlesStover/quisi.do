@@ -4,12 +4,12 @@ import {
   createContext,
   useEffect,
   useId,
-  useRef,
   useState,
-  type MutableRefObject,
   type PropsWithChildren,
   type ReactElement,
 } from 'react';
+import useEffectEvent from '../../hooks/use-effect-event.js';
+import noop from '../../utils/noop.js';
 
 // https://developers.cloudflare.com/turnstile/reference/supported-languages/
 export type Language =
@@ -51,14 +51,6 @@ export interface Props {
   readonly theme?: 'dark' | 'light' | 'auto' | undefined;
 }
 
-interface TurnstileApi {
-  readonly ready: (callback: VoidFunction) => void;
-  readonly render: (
-    container: string,
-    params?: TurnstileApiRenderParameters | undefined,
-  ) => void;
-}
-
 interface TurnstileApiRenderParameters {
   readonly 'after-interactive-callback'?: VoidFunction | undefined;
   readonly appearance?: 'always' | 'execute' | 'interaction-only' | undefined;
@@ -73,6 +65,14 @@ interface TurnstileApiRenderParameters {
   readonly theme?: 'auto' | 'dark' | 'light' | undefined;
   readonly 'timeout-callback'?: VoidFunction | undefined;
   readonly 'unsupported-callback'?: VoidFunction | undefined;
+}
+
+interface TurnstileApi {
+  readonly ready: (callback: VoidFunction) => void;
+  readonly render: (
+    container: string,
+    params?: TurnstileApiRenderParameters,
+  ) => void;
 }
 
 interface TurnstileWindow extends Window {
@@ -91,12 +91,13 @@ export interface State {
 const ATTEMPT_DELAY = 200;
 const Context = createContext<State | null>(null);
 const INCREMENT = 1;
-const MAX_ATTEMPTS = 150; // ~30 seconds
 const NONE = 0;
 const SRC =
   'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
 
-const hasTurnstile = (w: Window): w is TurnstileWindow => 'turnstile' in w;
+// 150 attempts is ~30 seconds
+const MAX_ATTEMPTS = 150;
+
 const hasScript = (scripts: HTMLCollectionOf<HTMLScriptElement>): boolean => {
   for (const script of scripts) {
     if (script.getAttribute('src') !== SRC) {
@@ -106,6 +107,9 @@ const hasScript = (scripts: HTMLCollectionOf<HTMLScriptElement>): boolean => {
   }
   return false;
 };
+
+const hasTurnstile = (wndw: Window): wndw is TurnstileWindow =>
+  'turnstile' in wndw;
 
 const DEFAULT_STATE: State = {
   error: null,
@@ -134,33 +138,19 @@ export default function Turnstile({
   const containerId: string = useId();
   const [state, setState] = useState<State>(DEFAULT_STATE);
 
-  const onErrorRef: MutableRefObject<((code: number) => void) | undefined> =
-    useRef(onError);
+  // Callbacks
+  const handleError = useEffectEvent(onError ?? noop);
+  const handleExpired = useEffectEvent(onExpired ?? noop);
+  const handleSuccess = useEffectEvent(onSuccess ?? noop);
+  const handleTimeout = useEffectEvent(onTimeout ?? noop);
+  const handleUnsupported = useEffectEvent(onUnsupported ?? noop);
 
-  const onExpiredRef: MutableRefObject<((token: string) => void) | undefined> =
-    useRef(onExpired);
-
-  const onSuccessRef: MutableRefObject<((token: string) => void) | undefined> =
-    useRef(onSuccess);
-
-  const onTimeoutRef: MutableRefObject<
-    ((...args: readonly unknown[]) => void) | undefined
-  > = useRef(onTimeout);
-
-  const onUnsupportedRef: MutableRefObject<
-    ((...args: readonly unknown[]) => void) | undefined
-  > = useRef(onUnsupported);
-
-  onErrorRef.current = onError;
-  onExpiredRef.current = onExpired;
-  onSuccessRef.current = onSuccess;
-  onTimeoutRef.current = onTimeout;
-  onUnsupportedRef.current = onUnsupported;
+  // Effects
   useEffect((): void => {
     const scripts: HTMLCollectionOf<HTMLScriptElement> =
       window.document.getElementsByTagName('script');
 
-    const readyRender = (attempt = NONE): void => {
+    const readyRender = (attempt: number = NONE): void => {
       if (!hasTurnstile(window)) {
         if (attempt < MAX_ATTEMPTS) {
           setTimeout((): void => {
@@ -171,7 +161,7 @@ export default function Turnstile({
       }
 
       const container: HTMLDivElement = window.document.createElement('div');
-      const id = `turnstile-container-${containerId.replace(/:/g, '')}`;
+      const id = `turnstile-container-${containerId.replace(/:/gu, '')}`;
       container.setAttribute('id', id);
       container.style.setProperty('display', 'none');
       window.document.body.appendChild(container);
@@ -183,70 +173,70 @@ export default function Turnstile({
         retry,
         sitekey,
         theme,
+
         callback(newToken: string): void {
           setState({
             error: null,
             expired: false,
             loading: false,
             supported: true,
-            token: newToken,
             timeout: false,
+            token: newToken,
           });
-          if (typeof onSuccessRef.current !== 'undefined') {
-            onSuccessRef.current(newToken);
-          }
+
+          handleSuccess(newToken);
         },
+
         'error-callback'(code: number): void {
           setState({
             error: code,
             expired: false,
             loading: false,
             supported: true,
-            token: null,
             timeout: false,
+            token: null,
           });
-          if (typeof onErrorRef.current !== 'undefined') {
-            onErrorRef.current(code);
-          }
+
+          handleError(code);
         },
+
         'expired-callback'(oldToken: string): void {
           setState({
             error: null,
             expired: true,
             loading: false,
             supported: true,
-            token: null,
             timeout: false,
+            token: null,
           });
-          if (typeof onExpiredRef.current !== 'undefined') {
-            onExpiredRef.current(oldToken);
-          }
+
+          handleExpired(oldToken);
         },
+
         'timeout-callback'(...args: readonly unknown[]): void {
           setState({
             error: null,
             expired: false,
             loading: false,
             supported: true,
-            token: null,
             timeout: true,
+            token: null,
           });
-          if (typeof onTimeoutRef.current !== 'undefined') {
-            onTimeoutRef.current(...args);
-          }
+
+          handleTimeout(...args);
         },
+
         'unsupported-callback'(...args: readonly unknown[]): void {
           setState({
             error: null,
             expired: false,
             loading: false,
             supported: false,
-            token: null,
             timeout: false,
+            token: null,
           });
-          if (typeof onUnsupportedRef.current !== 'undefined') {
-            onUnsupportedRef.current(...args);
-          }
+
+          handleUnsupported(...args);
         },
       });
     };
@@ -261,7 +251,20 @@ export default function Turnstile({
     script.setAttribute('src', SRC);
     window.document.body.appendChild(script);
     readyRender();
-  }, [appearance, containerId, execution, language, retry, sitekey, theme]);
+  }, [
+    appearance,
+    containerId,
+    execution,
+    handleError,
+    handleExpired,
+    handleSuccess,
+    handleTimeout,
+    handleUnsupported,
+    language,
+    retry,
+    sitekey,
+    theme,
+  ]);
 
   return <Context.Provider value={state}>{children}</Context.Provider>;
 }

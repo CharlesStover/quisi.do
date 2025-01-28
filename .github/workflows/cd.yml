@@ -59,7 +59,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Scan
-        uses: microsoft/DevSkim-Action@v1
+        uses: microsoft/devskim-action@v1
+        with:
+          options-json: config/devskim.json
       - name: Upload SARIF
         uses: github/codeql-action/upload-sarif@v2
         with:
@@ -128,9 +130,10 @@ jobs:
           CLOUDWATCH_RUM_GUEST_ROLE_ARN: arn:aws:iam::787801101157:role/RUM-Monitor-us-west-2-787801101157-0860829251171-Unauth
           CLOUDWATCH_RUM_IDENTITY_POOL_ID: us-west-2:f6379e5a-a304-4608-bf6d-b66f00a5d3fb
           CSP_ORIGIN: https://csp.quisi.do
+          DASHBOARD_ENDPOINT: https://dashboard.quisi.do/
           DD_API_KEY: ${{ secrets.DATADOG_API_KEY }}
           DD_APPLICATION_ID: e29eb164-e193-4380-b512-ebd70bbfaeb6
-          DD_CLIENT_TOKEN: pubf0c07bd5003d0c4a65a9f129d9e83a3d
+          DD_CLIENT_TOKEN: pubdb61afd2a8ec4725bfdb7fc4eb4ab6ce
           DD_ENV: prod
           DD_PROFILING_ENABLED: true
           DD_SERVICE: quisi.do
@@ -553,6 +556,41 @@ jobs:
           path: packages/
       - name: Deploy
         run: yarn packages/csp run production:deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_EDIT_WORKERS_API_TOKEN }}
+
+  wrangler-deploy-dashboard:
+    name: Wrangler deploy (Dashboard)
+    needs: [lighthouse-ci, npm, prepublish-applications]
+    runs-on: ubuntu-latest
+    env:
+      DD_ENV: ci
+    services:
+      datadog-agent:
+        image: datadog/agent:latest
+        env:
+          DD_API_KEY: ${{ secrets.DATADOG_API_KEY }}
+          DD_HOSTNAME: none
+          DD_INSIDE_CI: true
+        ports:
+          - 8126:8126
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          cache: yarn
+          node-version: latest
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: prepack
+          path: packages/
+      - name: Deploy
+        run: yarn packages/dashboard run production:deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_EDIT_WORKERS_API_TOKEN }}
 

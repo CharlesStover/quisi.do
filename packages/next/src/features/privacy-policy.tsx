@@ -21,8 +21,7 @@ export default function PrivacyPolicy(): ReactElement {
         as Amazon CloudWatch RUM, Cloudflare Insights, Datadog RUM, Fullstory,
         and Google Analytics. This data is aggregated and dashboarded to
         transparently monitor the website&apos;s performance. These services use
-        cookies, and cookie functionality will be documented in{' '}
-        quisi.do&apos;s{' '}
+        cookies, and cookie functionality will be documented in quisi.do&apos;s{' '}
         <Link
           feature="privacy"
           href="/cookies/"

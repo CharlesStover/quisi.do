@@ -1,7 +1,8 @@
 {
   "name": "@quisido/csp",
-  "type": "module",
+  "license": "UNLICENSED",
   "private": true,
+  "type": "module",
   "version": "1.0.0",
   "scripts": {
     "clean": "rm -rf .wrangler coverage",
@@ -40,26 +41,26 @@
     "fmrs": "workspace:^"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.8",
-    "@babel/preset-env": "^7.25.8",
-    "@babel/preset-react": "^7.25.7",
-    "@babel/preset-typescript": "^7.25.7",
-    "@cloudflare/workers-types": "^4.20241018.0",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
+    "@cloudflare/workers-types": "^4.20241218.0",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@quisido/eslint-config": "workspace:^",
     "@quisido/vitest-config": "workspace:^",
     "@quisido/worker-test": "workspace:^",
     "@types/eslint": "^9.6.1",
-    "@vitest/coverage-istanbul": "^2.1.3",
+    "@vitest/coverage-istanbul": "^3.0.4",
     "babel-plugin-replace-import-extension": "^1.1.4",
     "cjs-ts": "workspace:^",
     "cloudflare-test-utils": "workspace:^",
-    "concurrently": "^9.0.1",
-    "eslint": "^9.13.0",
-    "publint": "^0.2.11",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.9",
-    "vitest": "^2.1.3",
-    "wrangler": "^3.81.0"
+    "concurrently": "^9.1.0",
+    "eslint": "^9.17.0",
+    "publint": "^0.2.12",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.11",
+    "vitest": "^3.0.4",
+    "wrangler": "^3.99.0"
   }
 }

@@ -1,6 +1,11 @@
-import { render } from "@testing-library/react";
-import { Component, type PropsWithChildren, type ReactElement, type ReactNode } from "react";
-import { expect, vi } from "vitest";
+import { render } from '@testing-library/react';
+import {
+  Component,
+  type PropsWithChildren,
+  type ReactElement,
+  type ReactNode,
+} from 'react';
+import { expect, vi } from 'vitest';
 
 interface State {
   readonly error?: Error | undefined;
@@ -18,8 +23,7 @@ export default function expectToThrow(
 ): void {
   console.error = vi.fn();
 
-  const testGetDerivedStateFromError =
-    vi.fn(testGetDerivedStateFromErrorImpl);
+  const testGetDerivedStateFromError = vi.fn(testGetDerivedStateFromErrorImpl);
 
   class Boundary extends Component<PropsWithChildren, State> {
     public static getDerivedStateFromError = testGetDerivedStateFromError;

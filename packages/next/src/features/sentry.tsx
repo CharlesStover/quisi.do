@@ -1,7 +1,7 @@
-import { memo, type ReactElement, type ReactNode } from "react";
-import Sentry from "../components/sentry.jsx";
-import { GITHUB_SHA } from "../constants/github-sha.js";
-import validateString from "../utils/validate-string.js";
+import { memo, type ReactElement, type ReactNode } from 'react';
+import Sentry from '../components/sentry.jsx';
+import { GITHUB_SHA } from '../constants/github-sha.js';
+import validateString from '../utils/validate-string.js';
 
 interface Props {
   readonly children: ReactNode;

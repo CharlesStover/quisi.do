@@ -1,7 +1,11 @@
 'use client';
 
-import type { ComponentType, ReactElement, ReactNode } from 'react';
-import { useContext } from 'react';
+import {
+  type ComponentType,
+  type ReactElement,
+  type ReactNode,
+  useContext,
+} from 'react';
 import loadingComponentContext from '../contexts/loading-component.js';
 import useTranslate from '../hooks/use-translate.js';
 import type { ReactNodeTranslationValue } from '../types/react-node-translation-value.js';
@@ -24,12 +28,12 @@ export default function I18n({ children, ...vars }: Props): ReactElement {
   );
 
   // If this locale's translations have not yet loaded, display the loading
-  //   status indicator.
+  //   Status indicator.
   if (typeof translation === 'undefined') {
     return <LoadingComponent />;
   }
 
   // If this locale's translations have loaded and are present, display the
-  //   translation.
+  //   Translation.
   return <>{translation}</>;
 }

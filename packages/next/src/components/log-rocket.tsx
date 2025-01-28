@@ -1,14 +1,34 @@
 'use client';
 
-import { useEffect } from 'react';
+import { identity } from 'fmrs';
+import { memo, useEffect } from 'react';
 import { GITHUB_SHA } from '../constants/github-sha.js';
-import { WHOAMI } from '../constants/whoami.js';
 import useLogRocket from '../hooks/use-log-rocket.js';
-import { type LogRocketOptions, type LogRocketRequest, type LogRocketResponse } from '../types/log-rocket.js';
+import {
+  type LogRocketOptions,
+  type LogRocketRequest,
+  type LogRocketResponse,
+} from '../types/log-rocket.js';
 import getHostname from '../utils/get-hostname.js';
 
-interface Props {
+export interface User extends Record<string, number | string> {
+  readonly id: string;
+}
+
+export interface Props {
   readonly appId: string;
+  readonly user?: User | undefined;
+
+  readonly sanitizeRequest?:
+    | ((request: LogRocketRequest) => LogRocketRequest | null)
+    | undefined;
+
+  readonly sanitizeResponse?:
+    | ((
+        request: LogRocketRequest | undefined,
+        response: LogRocketResponse,
+      ) => LogRocketResponse | null)
+    | undefined;
 }
 
 const BROWSER: Required<Required<LogRocketOptions>['browser']> = {
@@ -17,7 +37,9 @@ const BROWSER: Required<Required<LogRocketOptions>['browser']> = {
   },
 };
 
-const CONSOLE_IS_ENABLED: Required<Required<Required<LogRocketOptions>['console']>['isEnabled']> = {
+const CONSOLE_IS_ENABLED: Required<
+  Required<Required<LogRocketOptions>['console']>['isEnabled']
+> = {
   debug: false,
   error: true,
   info: true,
@@ -41,48 +63,24 @@ const DOM: Required<Omit<Required<LogRocketOptions>['dom'], 'baseHref'>> = {
   textSanitizer: false,
 };
 
-const NETWORK_REQUEST_IDS: Map<string, string> = new Map<string, string>();
+const NETWORK_REQUESTS = new Map<string, LogRocketRequest>();
 
-const NETWORK: Required<Required<LogRocketOptions>['network']> = {
-  isEnabled: true,
-
-  requestSanitizer(request: LogRocketRequest): LogRocketRequest | null {
-    NETWORK_REQUEST_IDS.set(request.reqId, request.url);
-
-    return {
-      ...request,
-      headers: {
-        ...request.headers,
-        Cookie: undefined,
-        cookie: undefined,
-      },
-    };
-  },
-
-  responseSanitizer(response: LogRocketResponse): LogRocketResponse | null {
-    const requestUrl: string | undefined = NETWORK_REQUEST_IDS.get(response.reqId);
-
-    if (requestUrl === WHOAMI) {
-      return null;
-    }
-
-    return {
-      ...response,
-      headers: {
-        ...response.headers,
-      },
-    };
-  },
-};
-
-const OPTIONS: Required<Omit<LogRocketOptions, 'rootHostname' | 'serverURL' | 'shouldSendData' | 'uploadTimeInterval'>> = {
+const OPTIONS: Required<
+  Omit<
+    LogRocketOptions,
+    | 'network'
+    | 'rootHostname'
+    | 'serverURL'
+    | 'shouldSendData'
+    | 'uploadTimeInterval'
+  >
+> = {
   browser: BROWSER,
   childDomains: [],
   console: CONSOLE,
   disableBusyFramesTracker: false,
   dom: DOM,
   mergeIframes: true,
-  network: NETWORK,
   parentDomain: null,
   release: GITHUB_SHA ?? 'dev',
   shouldAugmentNPS: true,
@@ -92,19 +90,59 @@ const OPTIONS: Required<Omit<LogRocketOptions, 'rootHostname' | 'serverURL' | 's
   shouldParseXHRBlob: true,
 };
 
-export default function LogRocket({ appId }: Props): null {
+const defaultResponseSanitizer = (
+  _request: LogRocketRequest | undefined,
+  response: LogRocketResponse,
+): LogRocketResponse => response;
+
+function LogRocket({
+  appId,
+  sanitizeRequest = identity,
+  sanitizeResponse = defaultResponseSanitizer,
+  user,
+}: Props): null {
   const LogRocket = useLogRocket();
 
   useEffect((): void => {
     LogRocket.init(appId, {
       ...OPTIONS,
       rootHostname: getHostname(),
+
       dom: {
         ...OPTIONS.dom,
         baseHref: `${window.location.origin}/`,
       },
+
+      network: {
+        isEnabled: true,
+
+        requestSanitizer(request: LogRocketRequest): LogRocketRequest | null {
+          NETWORK_REQUESTS.set(request.reqId, request);
+          return sanitizeRequest(request);
+        },
+
+        responseSanitizer(
+          response: LogRocketResponse,
+        ): LogRocketResponse | null {
+          const request: LogRocketRequest | undefined = NETWORK_REQUESTS.get(
+            response.reqId,
+          );
+          return sanitizeResponse(request, response);
+        },
+      },
     });
-  }, [appId, LogRocket]);
+  }, [appId, LogRocket, sanitizeRequest, sanitizeResponse]);
+
+  useEffect((): void => {
+    if (typeof user === 'undefined') {
+      return;
+    }
+
+    const { id, ...traits } = user;
+    LogRocket.identify(id, traits);
+  }, [LogRocket, user]);
 
   return null;
 }
+
+export default memo(LogRocket);
